@@ -12,10 +12,10 @@ import retrofit2.http.Query;
 public interface RetrofitServices {
 
     //Creates the GET request that will be sent to request the JSON data
-    @GET("data.json")
+    @GET("")
     Call<Void> getUser(@Query("username")String username,@Query("password")String password);
 
     //Creates the 'fire and forget' GET request that will be used to send the analytics
-    @POST("stats")
+    @POST("")
     Call<Void>registerUser(@Query("username")String username,@Query("password")String password);
 }

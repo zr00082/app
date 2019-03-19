@@ -15,8 +15,4 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void LoginUser(String username, String password){
-        BountyHunterAPI api= new BountyHunterAPI();
-        api.getUser(username,password);
-    }
 }
