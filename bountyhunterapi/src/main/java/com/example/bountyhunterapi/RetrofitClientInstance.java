@@ -1,5 +1,14 @@
 package com.example.bountyhunterapi;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
+import java.io.File;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.Cache;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -17,7 +26,7 @@ public class RetrofitClientInstance {
      * Creates the instance of the retrofit client
      * @return The generated retrofit client
      */
-    public static Retrofit getRetrofitInstance(){
+    public static Retrofit getRetrofitInstance(Context context){
         /**
          * if statement that creates a new retrofit instance if there isn't one already
          * (ensure there is only ever one instance of the retrofit client)
@@ -26,6 +35,7 @@ public class RetrofitClientInstance {
             //Creates new retrofit instance
             retrofit= new Retrofit.Builder()
                     .baseUrl(BASE_URL)
+                    .client(provideOkHttpClient(context))
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
@@ -33,4 +43,39 @@ public class RetrofitClientInstance {
         return retrofit;
     }
 
+    private static OkHttpClient provideOkHttpClient(final Context context) {
+        OkHttpClient.Builder okhttpClientBuilder = new OkHttpClient.Builder();
+        okhttpClientBuilder.connectTimeout(30, TimeUnit.SECONDS);
+        okhttpClientBuilder.readTimeout(30, TimeUnit.SECONDS);
+        okhttpClientBuilder.writeTimeout(30, TimeUnit.SECONDS);
+
+        okhttpClientBuilder.addInterceptor(new NetworkConnectionInterceptor() {
+
+            @Override
+            public boolean isInternetAvailable() {
+                ConnectivityManager connectivityManager
+                        = (ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+                return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+            }
+
+            @Override
+            public void onInternetUnavailable() {
+
+            }
+
+            @Override
+            public void onCacheUnavailable() {
+
+            }
+        });
+
+        return okhttpClientBuilder.build();
+    }
+
+//    public Cache getCache() {
+//        File cacheDir = new File(getCacheDir(), "cache");
+//        Cache cache = new Cache(cacheDir, DISK_CACHE_SIZE);
+//        return cache;
+//    }
 }
