@@ -5,8 +5,9 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.example.bountyhunterapi.BountyHunterAPI;
+import com.example.bountyhunterapi.RetrofitClientInstance;
 
-public class MainActivity extends AppCompatActivity implements InternetConnectionListener {
+public class MainActivity extends AppCompatActivity {
 
     private Button mLoginButton, mRegisterButton;
     @Override
@@ -14,16 +15,9 @@ public class MainActivity extends AppCompatActivity implements InternetConnectio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BountyHunterAPI api = new BountyHunterAPI();
+        api.searchUser("test user",getApplicationContext());
+
 
     }
 
-    @Override
-    public void onInternetUnavailable() {
-
-    }
-
-    @Override
-    public void onCacheUnavailable() {
-
-    }
 }
