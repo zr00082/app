@@ -3,6 +3,7 @@ package com.example.bountyhunterapi;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -20,7 +21,7 @@ public class RetrofitClientInstance {
     //Declare the retrofit object
     private static Retrofit retrofit;
     //URl of the site the JSON will be retrieved from
-    private static final String BASE_URL ="http//api.bountyhunt.me";
+    private static final String BASE_URL ="http://api.bountyhunt.me";
 
     /**
      * Creates the instance of the retrofit client
@@ -61,13 +62,10 @@ public class RetrofitClientInstance {
 
             @Override
             public void onInternetUnavailable() {
+                Toast.makeText(context, "Your device is not connected to the internet", Toast.LENGTH_LONG).show();
 
             }
 
-            @Override
-            public void onCacheUnavailable() {
-
-            }
         });
 
         return okhttpClientBuilder.build();

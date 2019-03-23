@@ -14,10 +14,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BountyHunterAPI api = new BountyHunterAPI(getApplicationContext());
-        api.searchUser("test user");
+
 
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        BountyHunterAPI api = new BountyHunterAPI(getApplicationContext());
+        api.loginUser("testuser1","test");
+    }
 }

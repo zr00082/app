@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
@@ -25,6 +26,7 @@ public interface RetrofitServices {
     @POST("/users/")
     Call<Void>registerUser(@Body User newUser);
 
+    @FormUrlEncoded
     @POST("/users/login")
     Call<Token>loginUser(@Field("username") String username, @Field("password") String password);
 
@@ -40,7 +42,6 @@ public interface RetrofitServices {
 
     @GET("/users/search/:{username}")
     Call<UserList> searchUser(@Header("Authorization") String authKey,@Path("id") String username);
-
 
     @PATCH("/users/resetpassword/:{id}")
     Call<User> resetPassword(@Header("Authorization") String authKey,@Path("id") int userID);
