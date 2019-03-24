@@ -34,6 +34,9 @@ public interface RetrofitServices {
     @GET("/users/:{id}")
     Call<User> getUser(@Header("Authorization") String authKey, @Path("id") int userID);
 
+    @GET("/users/me")
+    Call<User> getLoggedInUser(@Header("Authorization") String authKey);
+
     @PUT("/users/:{id}")
     Call<User> updateUser(@Header("Authorization") String authKey, @Path("id") int userID, @Body User updateInfo);
 
@@ -41,7 +44,7 @@ public interface RetrofitServices {
     Call<Void> deleteUser(@Header("Authorization") String authKey,@Path("id") int userID);
 
     @GET("/users/search/:{username}")
-    Call<UserList> searchUser(@Header("Authorization") String authKey,@Path("id") String username);
+    Call<UserList> searchUser(@Header("Authorization") String authKey,@Path("username") String username);
 
     @PATCH("/users/resetpassword/:{id}")
     Call<User> resetPassword(@Header("Authorization") String authKey,@Path("id") int userID);

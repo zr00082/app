@@ -60,20 +60,8 @@ public class RetrofitClientInstance {
                 return activeNetworkInfo != null && activeNetworkInfo.isConnected();
             }
 
-            @Override
-            public void onInternetUnavailable() {
-                Toast.makeText(context, "Your device is not connected to the internet", Toast.LENGTH_LONG).show();
-
-            }
-
         });
 
         return okhttpClientBuilder.build();
     }
-
-//    public Cache getCache() {
-//        File cacheDir = new File(getCacheDir(), "cache");
-//        Cache cache = new Cache(cacheDir, DISK_CACHE_SIZE);
-//        return cache;
-//    }
 }
