@@ -23,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         BountyHunterAPI api = new BountyHunterAPI(getApplicationContext());
-        ((GlobalUser) getApplication()).setLoggedInUser( api.loginUser("testuser1","test"));
+        //api.registerUser("Khalil","Russell","khalilruss","khalilruss@live.com","123456");
+        //api.loginUser("khalilruss","123456");
+        //((GlobalUser) getApplication()).setLoggedInUser( api.loginUser("testuser1","test"));
+        ((GlobalUser) getApplication()).setLoggedInUser( api.loginUser("khalilruss","123456"));
+
     }
 }

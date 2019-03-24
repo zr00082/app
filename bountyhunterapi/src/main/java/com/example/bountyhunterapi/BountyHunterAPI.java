@@ -23,8 +23,8 @@ public class BountyHunterAPI {
         services = RetrofitClientInstance.getRetrofitInstance(context).create(RetrofitServices.class);
     }
 
-    public void registerUser(User user) {
-        Call<Void> call = services.registerUser(user);
+    public void registerUser(String fistName, String lastName, String username, String email, String password) {
+        Call<Void> call = services.registerUser(fistName,lastName,username,email,password);
 
         call.enqueue(new Callback<Void>() {
             @Override
@@ -91,6 +91,8 @@ public class BountyHunterAPI {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 200) {
                     retrievedUser[0] = response.body();
+                    Toast.makeText(context, retrievedUser[0].getFirstName(), Toast.LENGTH_LONG).show();
+
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find the user account with the specified username \n Please try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 401) {

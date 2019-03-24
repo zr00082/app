@@ -1,6 +1,5 @@
 package com.kierigby.bountyhunter;
 
-import android.app.Activity;
 import android.app.Application;
 
 import com.example.bountyhunterapi.User;

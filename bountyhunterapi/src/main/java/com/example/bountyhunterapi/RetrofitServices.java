@@ -22,9 +22,9 @@ import retrofit2.http.Query;
  */
 public interface RetrofitServices {
 
-    //Creates the 'fire and forget' GET request that will be used to send the analytics
+    @FormUrlEncoded
     @POST("/users/")
-    Call<Void>registerUser(@Body User newUser);
+    Call<Void>registerUser(@Field("firstName") String firstName, @Field("lastName") String lastName,@Field("username") String username, @Field("email") String email,@Field("password") String password);
 
     @FormUrlEncoded
     @POST("/users/login")
