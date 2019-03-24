@@ -6,7 +6,7 @@ import java.util.List;
 
 public class UserList {
     //Maps to the list of fruit objects
-    @SerializedName("fruit")
+    @SerializedName("users")
     private List<User> users;
 
     /**

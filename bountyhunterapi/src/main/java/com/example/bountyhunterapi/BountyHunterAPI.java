@@ -7,6 +7,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,7 +84,7 @@ public class BountyHunterAPI {
         return loggedInUser[0];
     }
 
-    public User getLoggedInUser(String token) {
+    private User getLoggedInUser(String token) {
         Call<User> call = services.getLoggedInUser(token);
 
         final User[] retrievedUser = new User[1];
@@ -91,8 +94,6 @@ public class BountyHunterAPI {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 200) {
                     retrievedUser[0] = response.body();
-                    Toast.makeText(context, retrievedUser[0].getFirstName(), Toast.LENGTH_LONG).show();
-
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find the user account with the specified username \n Please try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 401) {
@@ -113,7 +114,7 @@ public class BountyHunterAPI {
         return retrievedUser[0];
     }
 
-    public User getUser(int userID) {
+    public User getUser(UUID userID) {
         final User[] retrievedUser = new User[1];
 
         String token = preferences.getString("TOKEN", null);
@@ -124,10 +125,12 @@ public class BountyHunterAPI {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 200) {
                     Toast.makeText(context, "User account was found", Toast.LENGTH_LONG).show();
-                    retrievedUser[0] = new User(response.body().getId(), response.body().getFirstName(), response.body().getLastName(), response.body().getUsername(), response.body().getPassword(), response.body().getEmail(), response.body().isActive(), response.body().isVerified(), response.body().getCreated_at(), response.body().getUpdated_at());
+                    retrievedUser[0] = response.body();
+                    Toast.makeText(context,  retrievedUser[0] .getFirstName(), Toast.LENGTH_LONG).show();
                     return;
                 } else if (response.code() == 404) {
-                    Toast.makeText(context, "Could not find the user account with the specified username \n Please try again", Toast.LENGTH_LONG).show();
+                    Log.d("Response",response.raw().toString());
+                    Toast.makeText(context, "Could not find the user account with the specified id \n Please try again", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -145,7 +148,7 @@ public class BountyHunterAPI {
         return retrievedUser[0];
     }
 
-    public void updateUser(int userID, User updateUser) {
+    public void updateUser(UUID userID, User updateUser) {
         String token = preferences.getString("TOKEN", null);
         Call<User> call = services.updateUser(token, userID, updateUser);
 
@@ -167,17 +170,16 @@ public class BountyHunterAPI {
         });
     }
 
-    public void deleteUser(int userID) {
+    public void deleteUser(UUID userID,String password) {
 
         String token = preferences.getString("TOKEN",null);
-        Call<Void> call = services.deleteUser(token, userID);
+        Call<Void> call = services.deleteUser(token, userID,password);
 
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 204) {
                     Toast.makeText(context, "Your account was successfully deleted", Toast.LENGTH_LONG).show();
-                    return;
                 } else if (response.code() == 500) {
                     Toast.makeText(context, "An error occurred when trying to delete account \n Please try again", Toast.LENGTH_LONG).show();
                 }
@@ -196,7 +198,8 @@ public class BountyHunterAPI {
 
     }
 
-    public void searchUser(String username) {
+    public List<User> searchUser(String username) {
+        final List<User>[] users = new List[]{new ArrayList<>()};
         String token = preferences.getString("TOKEN",null);
         Call<UserList> call = services.searchUser(token, username);
 
@@ -204,8 +207,9 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<UserList> call, Response<UserList> response) {
                 if (response.code() == 200) {
-                    Toast.makeText(context, "User account was found", Toast.LENGTH_LONG).show();
-                    return;
+                    UserList body = response.body();
+                    users[0] = body.getUsers();
+                    Toast.makeText(context, "User accounts with that username were found", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find the user account with the specified username \n Please try again", Toast.LENGTH_LONG).show();
                 }
@@ -221,11 +225,46 @@ public class BountyHunterAPI {
                 }
             }
         });
+        return users[0];
     }
 
-    public void resetPassoword(int userID) {
-        String token = preferences.getString("TOKEN",null);
-        services.resetPassword(token, userID);
+    public void resetPasswordRequest(String email){
+        Call<Void> call = services.resetPasswordRequest(email);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "An email has been sent to your email with to reset your password", Toast.LENGTH_LONG).show();
+                }else if(response.code()==404){
+                    Toast.makeText(context, "There is no user that links to the email entered \n Please enter the email the email you used to register your account", Toast.LENGTH_LONG).show();
+                }else if (response.code() == 500) {
+                    Toast.makeText(context, "An error occurred when trying to send the email to reset your password\n Please try again", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    public void resetPassoword(String token,String newPassword) {
+        Call<Void> call=services.resetPassword(token,newPassword);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
     }
 
     ;

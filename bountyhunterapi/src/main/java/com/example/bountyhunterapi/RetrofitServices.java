@@ -2,6 +2,7 @@ package com.example.bountyhunterapi;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -31,21 +32,27 @@ public interface RetrofitServices {
     Call<Token>loginUser(@Field("username") String username, @Field("password") String password);
 
     //Creates the GET request that will be sent to request the JSON data
-    @GET("/users/:{id}")
-    Call<User> getUser(@Header("Authorization") String authKey, @Path("id") int userID);
+    @GET("/users/{id}")
+    Call<User> getUser(@Header("Authorization") String authKey, @Path("id") UUID userID);
 
     @GET("/users/me")
     Call<User> getLoggedInUser(@Header("Authorization") String authKey);
 
-    @PUT("/users/:{id}")
-    Call<User> updateUser(@Header("Authorization") String authKey, @Path("id") int userID, @Body User updateInfo);
+    @PUT("/users/{id}")
+    Call<User> updateUser(@Header("Authorization") String authKey, @Path("id") UUID userID, @Body User updateInfo);
 
-    @DELETE("/users/:{id}")
-    Call<Void> deleteUser(@Header("Authorization") String authKey,@Path("id") int userID);
+    @FormUrlEncoded
+    @DELETE("/users/{id}")
+    Call<Void> deleteUser(@Header("Authorization") String authKey,@Path("id") UUID userID,@Field("password") String password);
 
-    @GET("/users/search/:{username}")
+    @GET("/users/search/{username}")
     Call<UserList> searchUser(@Header("Authorization") String authKey,@Path("username") String username);
 
-    @PATCH("/users/resetpassword/:{id}")
-    Call<User> resetPassword(@Header("Authorization") String authKey,@Path("id") int userID);
+    @FormUrlEncoded
+    @PATCH("/users/resetpassword")
+    Call<Void> resetPasswordRequest( @Field("email") String email);
+
+    @FormUrlEncoded
+    @POST("/users/resetpassword/{token}")
+    Call<Void> resetPassword(@Path("token") String token,@Field("newpassword") String newPassword);
 }

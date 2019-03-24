@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         //api.registerUser("Khalil","Russell","khalilruss","khalilruss@live.com","123456");
         //api.loginUser("khalilruss","123456");
         //((GlobalUser) getApplication()).setLoggedInUser( api.loginUser("testuser1","test"));
-        ((GlobalUser) getApplication()).setLoggedInUser( api.loginUser("khalilruss","123456"));
-
+       // ((GlobalUser) getApplication()).setLoggedInUser( api.loginUser("khalilruss","123456"));
+api.resetPasswordRequest("khalilruss@live.com");
     }
 }

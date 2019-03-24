@@ -2,6 +2,7 @@ package com.kierigby.bountyhunter;
 
 import android.app.Application;
 
+import com.example.bountyhunterapi.BountyHunterAPI;
 import com.example.bountyhunterapi.User;
 
 public class GlobalUser extends Application {
