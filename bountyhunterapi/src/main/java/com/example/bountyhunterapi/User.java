@@ -3,11 +3,12 @@ package com.example.bountyhunterapi;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class User {
 
     @SerializedName("id")
-    private int id;
+    private UUID id;
     @SerializedName("firstName")
     private String firstName;
     @SerializedName("lastName")
@@ -27,7 +28,7 @@ public class User {
     @SerializedName("updated_at")
     private Date updated_at;
 
-    public User(int id, String firstName, String lastName, String username, String password, String email, boolean active, boolean verified, Date created_at, Date updated_at) {
+    public User(UUID id, String firstName, String lastName, String username, String password, String email, boolean active, boolean verified, Date created_at, Date updated_at) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,7 +41,7 @@ public class User {
         this.updated_at = updated_at;
     }
 
-    public int getId() {
+    public UUID getId() {
         return this.id;
     }
 

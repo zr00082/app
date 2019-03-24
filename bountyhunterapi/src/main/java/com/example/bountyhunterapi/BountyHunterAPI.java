@@ -15,15 +15,16 @@ import retrofit2.Response;
 public class BountyHunterAPI {
     private Context context;
     private SharedPreferences preferences;
+    private RetrofitServices services;
 
 
     public BountyHunterAPI(Context context) {
         this.context = context;
+        services = RetrofitClientInstance.getRetrofitInstance(context).create(RetrofitServices.class);
     }
 
     public void registerUser(User user) {
-        RetrofitServices service = RetrofitClientInstance.getRetrofitInstance(context).create(RetrofitServices.class);
-        Call<Void> call = service.registerUser(user);
+        Call<Void> call = services.registerUser(user);
 
         call.enqueue(new Callback<Void>() {
             @Override
@@ -49,8 +50,7 @@ public class BountyHunterAPI {
     }
 
     public User loginUser(String username, String password) {
-        final RetrofitServices service = RetrofitClientInstance.getRetrofitInstance(context).create(RetrofitServices.class);
-        Call<Token> call = service.loginUser(username, password);
+        Call<Token> call = services.loginUser(username, password);
 
         final User[] loggedInUser = new User[1];
 
@@ -82,8 +82,7 @@ public class BountyHunterAPI {
     }
 
     public User getLoggedInUser(String token) {
-        RetrofitServices service = RetrofitClientInstance.getRetrofitInstance(context).create(RetrofitServices.class);
-        Call<User> call = service.getLoggedInUser(token);
+        Call<User> call = services.getLoggedInUser(token);
 
         final User[] retrievedUser = new User[1];
 
@@ -91,11 +90,7 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 200) {
-                    //retrievedUser[0] = new User(response.body().getId(), response.body().getFirstName(), response.body().getLastName(), response.body().getUsername(), response.body().getPassword(), response.body().getEmail(), response.body().isActive(), response.body().isVerified(), response.body().getCreated_at(), response.body().getUpdated_at());
                     retrievedUser[0] = response.body();
-                    Toast.makeText(context, retrievedUser[0].getFirstName(), Toast.LENGTH_LONG).show();
-//                    Log.d("Response", response.raw().toString());
-//                    Log.d("Response", String.valueOf(response.body().getId()));
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find the user account with the specified username \n Please try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 401) {
@@ -117,12 +112,10 @@ public class BountyHunterAPI {
     }
 
     public User getUser(int userID) {
-        RetrofitServices service = RetrofitClientInstance.getRetrofitInstance(context).create(RetrofitServices.class);
-
         final User[] retrievedUser = new User[1];
 
         String token = preferences.getString("TOKEN", null);
-        Call<User> call = service.getUser(token, userID);
+        Call<User> call = services.getUser(token, userID);
 
         call.enqueue(new Callback<User>() {
             @Override
@@ -151,10 +144,8 @@ public class BountyHunterAPI {
     }
 
     public void updateUser(int userID, User updateUser) {
-        RetrofitServices service = RetrofitClientInstance.getRetrofitInstance(context).create(RetrofitServices.class);
-
         String token = preferences.getString("TOKEN", null);
-        Call<User> call = service.updateUser(token, userID, updateUser);
+        Call<User> call = services.updateUser(token, userID, updateUser);
 
         call.enqueue(new Callback<User>() {
             @Override
@@ -176,10 +167,8 @@ public class BountyHunterAPI {
 
     public void deleteUser(int userID) {
 
-        RetrofitServices service = RetrofitClientInstance.getRetrofitInstance(context).create(RetrofitServices.class);
-
-        String token = ""; //preferences.getString("TOKEN",null);
-        Call<Void> call = service.deleteUser(token, userID);
+        String token = preferences.getString("TOKEN",null);
+        Call<Void> call = services.deleteUser(token, userID);
 
         call.enqueue(new Callback<Void>() {
             @Override
@@ -206,10 +195,8 @@ public class BountyHunterAPI {
     }
 
     public void searchUser(String username) {
-        RetrofitServices service = RetrofitClientInstance.getRetrofitInstance(context).create(RetrofitServices.class);
-
-        String token = ""; //preferences.getString("TOKEN",null);
-        Call<UserList> call = service.searchUser(token, username);
+        String token = preferences.getString("TOKEN",null);
+        Call<UserList> call = services.searchUser(token, username);
 
         call.enqueue(new Callback<UserList>() {
             @Override
@@ -235,10 +222,8 @@ public class BountyHunterAPI {
     }
 
     public void resetPassoword(int userID) {
-        RetrofitServices service = RetrofitClientInstance.getRetrofitInstance(context).create(RetrofitServices.class);
-
-        String token = ""; //preferences.getString("TOKEN",null);
-        service.resetPassword(token, userID);
+        String token = preferences.getString("TOKEN",null);
+        services.resetPassword(token, userID);
     }
 
     ;

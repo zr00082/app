@@ -1,5 +1,9 @@
 package com.example.bountyhunterapi;
 
+import android.util.Log;
+
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.Request;
