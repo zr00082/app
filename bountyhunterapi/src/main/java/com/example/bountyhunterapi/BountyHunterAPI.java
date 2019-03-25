@@ -52,18 +52,16 @@ public class BountyHunterAPI {
         });
     }
 
-    public User loginUser(String username, String password) {
+    public void loginUser(String username, String password,final LoginCallBack callBack) {
         Call<Token> call = services.loginUser(username, password);
-
-        final User[] loggedInUser = new User[1];
-
         call.enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if (response.code() == 200) {
                     preferences = PreferenceManager.getDefaultSharedPreferences(context);
                     preferences.edit().putString("TOKEN", "Bearer " + response.body().getToken()).apply();
-                    loggedInUser[0] = getLoggedInUser(preferences.getString("TOKEN", null));
+                    getLoggedInUser(preferences.getString("TOKEN", null),callBack);
+
                 } else if (response.code() == 401) {
                     Toast.makeText(context, "The password you entered was incorrect", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 404) {
@@ -81,20 +79,16 @@ public class BountyHunterAPI {
                 }
             }
         });
-        return loggedInUser[0];
     }
 
-    private User getLoggedInUser(String token) {
+    private void getLoggedInUser(String token, final LoginCallBack callBack) {
         Call<User> call = services.getLoggedInUser(token);
-
-        final User[] retrievedUser = new User[1];
 
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 200) {
-                    Toast.makeText(context,response.body().getFirstName() ,Toast.LENGTH_LONG).show();
-                    retrievedUser[0] = response.body();
+                    callBack.onLogin(response.body());
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find the user account with the specified username \n Please try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 401) {
@@ -112,8 +106,6 @@ public class BountyHunterAPI {
                 }
             }
         });
-
-        return retrievedUser[0];
     }
 
     public User getUser(UUID userID) {
@@ -271,5 +263,9 @@ public class BountyHunterAPI {
 
     public boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    public interface LoginCallBack{
+        void onLogin(User user);
     }
 }

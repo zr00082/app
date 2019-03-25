@@ -15,7 +15,7 @@ import com.example.bountyhunterapi.User;
 public class MainActivity extends AppCompatActivity {
 
     private Button mLoginButton, mRegisterButton;
-    private EditText  mPasswordInput;
+    private EditText mPasswordInput;
     private EditText mUsernameInput;
     private TextView mForgotPasswordTextView;
     private BountyHunterAPI api = new BountyHunterAPI(this);
@@ -29,59 +29,52 @@ public class MainActivity extends AppCompatActivity {
         addListenerToForgotPasswordTextView();
     }
 
-    public void addListenerToLoginButton(){
+    public void addListenerToLoginButton() {
         mLoginButton = findViewById(R.id.loginBtn);
-        mUsernameInput= findViewById(R.id.loginUsernameEditText);
-        mPasswordInput= findViewById(R.id.loginPasswordEditText);
+        mUsernameInput = findViewById(R.id.loginUsernameEditText);
+        mPasswordInput = findViewById(R.id.loginPasswordEditText);
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mUsernameInput.getText().toString().isEmpty()||mPasswordInput.getText().toString().isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Please enter both your username and password",Toast.LENGTH_LONG).show();
-                }else {
-                    String username= mUsernameInput.getText().toString();
+                if (mUsernameInput.getText().toString().isEmpty() || mPasswordInput.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please enter both your username and password", Toast.LENGTH_LONG).show();
+                } else {
+                    String username = mUsernameInput.getText().toString();
                     String password = mPasswordInput.getText().toString();
-                    User test = api.loginUser(username,password);
-                   // Toast.makeText(getApplicationContext(),test.getFirstName() ,Toast.LENGTH_LONG);
-                    if (test!=null){
-                        Toast.makeText(getApplicationContext(),test.getFirstName() ,Toast.LENGTH_LONG);
-                    }
-                    ((GlobalUser) getApplication()).setLoggedInUser(api.loginUser(username,password));
+                    api.loginUser(username, password, new BountyHunterAPI.LoginCallBack() {
+                        @Override
+                        public void onLogin(User user) {
+                            ((GlobalUser) getApplication()).setLoggedInUser(user);
+                            Intent loggedInI = new Intent(MainActivity.this, LoggedInActivity.class);
+                            startActivity(loggedInI);
+                        }
+                    });
                 }
-
-                if(((GlobalUser) getApplication()).getLoggedInUser()==null){
-                   // Toast.makeText(getApplicationContext(),"Seems like something went wrong \n Please try to login again",Toast.LENGTH_LONG).show();
-
-                }else {
-                    Intent loggedInI = new Intent(MainActivity.this, LoggedInActivity.class);
-                    startActivity(loggedInI);
-                }
-
 
             }
         });
     }
 
-    public void addListenerToRegisterButton(){
-        mRegisterButton=findViewById(R.id.registerBtn);
+    public void addListenerToRegisterButton() {
+        mRegisterButton = findViewById(R.id.registerBtn);
 
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerI = new Intent(MainActivity.this,RegisterActivity.class);
+                Intent registerI = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(registerI);
             }
         });
     }
 
-    public void addListenerToForgotPasswordTextView(){
-        mForgotPasswordTextView=findViewById(R.id.forgotPasswordtextView);
+    public void addListenerToForgotPasswordTextView() {
+        mForgotPasswordTextView = findViewById(R.id.forgotPasswordtextView);
 
         mForgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent forgotPasswordI = new Intent(MainActivity.this,ForgottenPassActivity.class);
+                Intent forgotPasswordI = new Intent(MainActivity.this, ForgottenPassActivity.class);
                 startActivity(forgotPasswordI);
             }
         });
