@@ -1,1 +1,1 @@
-include ':app', ':bountyhunterapi'
+include ':app'
