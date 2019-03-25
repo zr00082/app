@@ -237,7 +237,7 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 200) {
-                    Toast.makeText(context, "An email has been sent to your email with to reset your password", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "An email has been sent with the link to reset your password", Toast.LENGTH_LONG).show();
                 }else if(response.code()==404){
                     Toast.makeText(context, "There is no user that links to the email entered \n Please enter the email the email you used to register your account", Toast.LENGTH_LONG).show();
                 }else if (response.code() == 500) {
@@ -247,7 +247,7 @@ public class BountyHunterAPI {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
+                Toast.makeText(context, "Failed to connect to the server \n please close the application and try again", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -267,5 +267,9 @@ public class BountyHunterAPI {
 
             }
         });
+    }
+
+    public boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }

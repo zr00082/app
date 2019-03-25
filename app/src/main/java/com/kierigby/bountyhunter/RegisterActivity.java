@@ -52,8 +52,12 @@ public class RegisterActivity extends AppCompatActivity {
                 if (mFirstNameInput.getText().toString().isEmpty() || mLastNameInput.getText().toString().isEmpty() || mEmailInput.getText().toString().isEmpty() || mUsernameInput.getText().toString().isEmpty() || mPasswordInput.getText().toString().isEmpty() || mConfirmPasswordInput.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please enter all the necessary information", Toast.LENGTH_LONG).show();
                 } else if (!mPasswordInput.getText().toString().equals(mConfirmPasswordInput.getText().toString())) {
-                    Toast.makeText(getApplicationContext(),"it worked" ,Toast.LENGTH_LONG).show();
-                }else {
+                    Toast.makeText(getApplicationContext(),"The passwords you entered do not match" ,Toast.LENGTH_LONG).show();
+                }else if(api.isEmailValid(mEmailInput.getText().toString())==false){
+                    Toast.makeText(getApplicationContext(),"Please enter a valid email address" ,Toast.LENGTH_LONG).show();
+                }
+
+                else {
                     api.registerUser(mFirstNameInput.getText().toString(), mLastNameInput.getText().toString(),mUsernameInput.getText().toString(), mEmailInput.getText().toString(),mConfirmPasswordInput.getText().toString());
                     NavUtils.navigateUpFromSameTask(RegisterActivity.this);
                 }
