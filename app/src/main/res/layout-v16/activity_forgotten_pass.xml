@@ -17,7 +17,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:fontFamily="@font/moderat_regular"
-        android:text="Forgotten Password"
+        android:text="@string/forgotten_password_string"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:gravity="center"
-        android:text="We can help you recover your password, but first we need a few details from you..."
+        android:text="@string/recover_password_string"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:fontFamily="@font/moderat_regular"
@@ -67,7 +67,7 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/loginBtn"
+        android:id="@+id/nextBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -76,7 +76,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:background="@color/red"
-        android:text="Next"
+        android:text="@string/next_string"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:fontFamily="@font/moderat_regular"

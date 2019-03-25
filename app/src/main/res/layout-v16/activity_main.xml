@@ -22,7 +22,7 @@
         app:srcCompat="@drawable/logo_with_marker" />
 
     <EditText
-        android:id="@+id/registerUsernameEditText"
+        android:id="@+id/loginUsernameEditText"
         android:layout_width="289dp"
         android:layout_height="41dp"
         android:layout_marginStart="16dp"
@@ -63,7 +63,7 @@
         android:topLeftRadius="7dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerUsernameEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/loginUsernameEditText" />
 
     <TextView
         android:id="@+id/forgotPasswordtextView"
@@ -95,7 +95,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:background="@color/red"
-        android:text="Log in"
+        android:text="@string/log_in_string"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/registerBtn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,7 +111,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:background="@color/lightblue"
-        android:text="Register"
+        android:text="@string/register_string"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

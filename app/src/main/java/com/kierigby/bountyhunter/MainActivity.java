@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bountyhunterapi.BountyHunterAPI;
-import com.example.bountyhunterapi.RetrofitClientInstance;
 import com.example.bountyhunterapi.User;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,30 +34,29 @@ public class MainActivity extends AppCompatActivity {
         mUsernameInput= findViewById(R.id.loginUsernameEditText);
         mPasswordInput= findViewById(R.id.loginPasswordEditText);
 
-        if (mPasswordInput== null){
-            Toast.makeText(getApplicationContext(),"Gone to shits",Toast.LENGTH_LONG).show();
-        }
-
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-                if(mUsernameInput.getText().toString().equals("")||mPasswordInput.getText().toString().equals("")){
+                if(mUsernameInput.getText().toString().isEmpty()||mPasswordInput.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(),"Please enter both your username and password",Toast.LENGTH_LONG).show();
                 }else {
                     String username= mUsernameInput.getText().toString();
                     String password = mPasswordInput.getText().toString();
+                    User test = api.loginUser(username,password);
+                   // Toast.makeText(getApplicationContext(),test.getFirstName() ,Toast.LENGTH_LONG);
+                    if (test!=null){
+                        Toast.makeText(getApplicationContext(),test.getFirstName() ,Toast.LENGTH_LONG);
+                    }
                     ((GlobalUser) getApplication()).setLoggedInUser(api.loginUser(username,password));
                 }
 
                 if(((GlobalUser) getApplication()).getLoggedInUser()==null){
-                    Toast.makeText(getApplicationContext(),"Seems like something went wrong \n Please try to login again",Toast.LENGTH_LONG);
+                   // Toast.makeText(getApplicationContext(),"Seems like something went wrong \n Please try to login again",Toast.LENGTH_LONG).show();
 
+                }else {
+                    Intent loggedInI = new Intent(MainActivity.this, LoggedInActivity.class);
+                    startActivity(loggedInI);
                 }
-                Intent loggedInI = new Intent(MainActivity.this,LoggedInActivity.class);
-                startActivity(loggedInI);
 
 
             }

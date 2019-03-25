@@ -93,6 +93,7 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 200) {
+                    Toast.makeText(context,response.body().getFirstName() ,Toast.LENGTH_LONG).show();
                     retrievedUser[0] = response.body();
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find the user account with the specified username \n Please try again", Toast.LENGTH_LONG).show();
@@ -111,6 +112,7 @@ public class BountyHunterAPI {
                 }
             }
         });
+
         return retrievedUser[0];
     }
 
@@ -266,6 +268,4 @@ public class BountyHunterAPI {
             }
         });
     }
-
-    ;
 }
