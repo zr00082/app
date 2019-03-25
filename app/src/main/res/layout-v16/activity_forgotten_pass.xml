@@ -17,7 +17,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:fontFamily="@font/moderat_regular"
-        android:text="@string/forgotten_password_string"
+        android:text="Forgotten Password"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:gravity="center"
-        android:text="@string/recover_password_string"
+        android:text="We can help you recover your password, but first we need a few details from you..."
         android:textColor="@color/white"
         android:textSize="24sp"
         app:fontFamily="@font/moderat_regular"
@@ -54,7 +54,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:ems="10"
-        android:hint="@string/please_enter_your_email_string"
+        android:hint="Please enter your email"
         android:inputType="textEmailAddress"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -67,7 +67,7 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/nextBtn"
+        android:id="@+id/loginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -76,7 +76,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:background="@color/red"
-        android:text="@string/next_string"
+        android:text="Next"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:fontFamily="@font/moderat_regular"
@@ -84,5 +84,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterEmail"
         tools:ignore="MissingConstraints" />
-
 </android.support.constraint.ConstraintLayout>
