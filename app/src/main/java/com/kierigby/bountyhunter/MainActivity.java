@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_forgotten_pass);
 
     }
 
@@ -27,6 +27,6 @@ public class MainActivity extends AppCompatActivity {
         //api.loginUser("khalilruss","123456");
         //((GlobalUser) getApplication()).setLoggedInUser( api.loginUser("testuser1","test"));
        // ((GlobalUser) getApplication()).setLoggedInUser( api.loginUser("khalilruss","123456"));
-api.resetPasswordRequest("khalilruss@live.com");
+//api.resetPasswordRequest("khalilruss@live.com");
     }
 }
