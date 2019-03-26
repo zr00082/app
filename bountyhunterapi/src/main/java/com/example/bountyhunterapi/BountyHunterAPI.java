@@ -7,7 +7,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,7 +51,7 @@ public class BountyHunterAPI {
         });
     }
 
-    public void loginUser(String username, String password,final LoginCallBack callBack) {
+    public void loginUser(String username, String password,final FoundUserCallBack callBack) {
         Call<Token> call = services.loginUser(username, password);
         call.enqueue(new Callback<Token>() {
             @Override
@@ -81,14 +80,14 @@ public class BountyHunterAPI {
         });
     }
 
-    private void getLoggedInUser(String token, final LoginCallBack callBack) {
+    private void getLoggedInUser(String token, final FoundUserCallBack callBack) {
         Call<User> call = services.getLoggedInUser(token);
 
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 200) {
-                    callBack.onLogin(response.body());
+                    callBack.onUserReturned(response.body());
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find the user account with the specified username \n Please try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 401) {
@@ -108,9 +107,7 @@ public class BountyHunterAPI {
         });
     }
 
-    public User getUser(UUID userID) {
-        final User[] retrievedUser = new User[1];
-
+    public void getUser(UUID userID,final FoundUserCallBack callBack) {
         String token = preferences.getString("TOKEN", null);
         Call<User> call = services.getUser(token, userID);
 
@@ -118,10 +115,9 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 200) {
+                    callBack.onUserReturned(response.body());
                     Toast.makeText(context, "User account was found", Toast.LENGTH_LONG).show();
-                    retrievedUser[0] = response.body();
-                    Toast.makeText(context,  retrievedUser[0] .getFirstName(), Toast.LENGTH_LONG).show();
-                    return;
+
                 } else if (response.code() == 404) {
                     Log.d("Response",response.raw().toString());
                     Toast.makeText(context, "Could not find the user account with the specified id \n Please try again", Toast.LENGTH_LONG).show();
@@ -138,8 +134,6 @@ public class BountyHunterAPI {
                 }
             }
         });
-
-        return retrievedUser[0];
     }
 
     public void updateUser(UUID userID, User updateUser) {
@@ -192,8 +186,7 @@ public class BountyHunterAPI {
 
     }
 
-    public List<User> searchUser(String username) {
-        final List<User>[] users = new List[]{new ArrayList<>()};
+    public void searchUser(String username,final SearchUsersCallBack callBack) {
         String token = preferences.getString("TOKEN",null);
         Call<UserList> call = services.searchUser(token, username);
 
@@ -201,8 +194,7 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<UserList> call, Response<UserList> response) {
                 if (response.code() == 200) {
-                    UserList body = response.body();
-                    users[0] = body.getUsers();
+                    callBack.onUsersFound(response.body().getUsers());
                     Toast.makeText(context, "User accounts with that username were found", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find the user account with the specified username \n Please try again", Toast.LENGTH_LONG).show();
@@ -219,7 +211,6 @@ public class BountyHunterAPI {
                 }
             }
         });
-        return users[0];
     }
 
     public void resetPasswordRequest(String email){
@@ -265,7 +256,11 @@ public class BountyHunterAPI {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    public interface LoginCallBack{
-        void onLogin(User user);
+    public interface FoundUserCallBack {
+        void onUserReturned(User user);
+    }
+
+    public interface SearchUsersCallBack {
+        void onUsersFound(List<User> user);
     }
 }

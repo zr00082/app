@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     String username = mUsernameInput.getText().toString();
                     String password = mPasswordInput.getText().toString();
-                    api.loginUser(username, password, new BountyHunterAPI.LoginCallBack() {
+                    api.loginUser(username, password, new BountyHunterAPI.FoundUserCallBack() {
                         @Override
-                        public void onLogin(User user) {
+                        public void onUserReturned(User user) {
                             ((GlobalUser) getApplication()).setLoggedInUser(user);
                             Intent loggedInI = new Intent(MainActivity.this, LoggedInActivity.class);
                             startActivity(loggedInI);
