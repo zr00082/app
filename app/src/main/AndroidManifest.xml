@@ -28,7 +28,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>
         </activity>
-        <activity android:name=".DeepLink">
+        <activity android:name=".NewPasswordActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
