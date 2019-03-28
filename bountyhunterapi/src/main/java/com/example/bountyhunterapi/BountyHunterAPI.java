@@ -6,6 +6,10 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
@@ -25,17 +29,31 @@ public class BountyHunterAPI {
         services = RetrofitClientInstance.getRetrofitInstance(context).create(RetrofitServices.class);
     }
 
-    public void registerUser(String fistName, String lastName, String username, String email, String password) {
+    public void registerUser(String fistName, String lastName, String username, String email, String password, final registerCallBack callBack) {
         Call<Void> call = services.registerUser(fistName,lastName,username,email,password);
 
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 201) {
+                    callBack.registrationSuccess(true);
                     Toast.makeText(context, "Your account was successfully registered", Toast.LENGTH_LONG).show();
-                    return;
                 } else if (response.code() == 500) {
-                    Toast.makeText(context, "An error occurred when trying to register your account \n Please try again", Toast.LENGTH_LONG).show();
+                    try {
+                        JSONObject errorObj= new JSONObject(response.errorBody().string());
+                        JSONObject errorObj2=new JSONObject(errorObj.getString("error"));
+                        JSONArray errorArray = new JSONArray(errorObj2.getJSONArray("errors").toString());
+                        JSONObject errorMessage = new JSONObject(errorArray.getJSONObject(0).toString());
+                        if (errorMessage.getString("message").equals("username must be unique")){
+                            Toast.makeText(context, "Sorry that username has already been taken\nPlease enter a new one", Toast.LENGTH_LONG).show();
+                        }else if(errorMessage.getString("message").equals("email must be unique")){
+                            Toast.makeText(context, "Sorry there is an account already linked to that email address\nPlease enter a different email address", Toast.LENGTH_LONG).show();
+                        }
+
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
 
@@ -220,7 +238,7 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 200) {
-                    Toast.makeText(context, "An email has been sent with the link to reset your password", Toast.LENGTH_LONG).show();
+                  Toast.makeText(context, "An email has been sent with the link to reset your password", Toast.LENGTH_LONG).show();
                 }else if(response.code()==404){
                     Toast.makeText(context, "There is no user that links to the email entered \n Please enter the email the email you used to register your account", Toast.LENGTH_LONG).show();
                 }else if (response.code() == 500) {
@@ -262,5 +280,9 @@ public class BountyHunterAPI {
 
     public interface SearchUsersCallBack {
         void onUsersFound(List<User> user);
+    }
+
+    public interface registerCallBack {
+        void registrationSuccess(Boolean success);
     }
 }
