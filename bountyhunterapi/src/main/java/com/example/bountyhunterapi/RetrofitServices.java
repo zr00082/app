@@ -55,4 +55,12 @@ public interface RetrofitServices {
     @FormUrlEncoded
     @POST("/users/resetpassword/{token}")
     Call<Void> resetPassword(@Path("token") String token,@Field("newpassword") String newPassword);
+
+    @GET("/users/stats/{id}/fugitive")
+    Call<FugitiveStat> getFugitiveStats(@Header("Authorization") String authKey, @Path("id") UUID userID);
+
+    @GET("/users/stats/{id}/bountyhunter")
+    Call<BountyHunterStat> getBountyHunterStats(@Header("Authorization") String authKey, @Path("id") UUID userID);
+
+
 }

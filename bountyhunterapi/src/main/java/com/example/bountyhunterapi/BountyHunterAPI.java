@@ -276,9 +276,8 @@ public class BountyHunterAPI {
                     Toast.makeText(context, "Could not the user account to change the password for\nPlease try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 401) {
                     Toast.makeText(context, "The link you used to has expired\nPlease complete the forget password form again to be sent a new link", Toast.LENGTH_LONG).show();
-                } else if (response.code()==500){
+                } else if (response.code() == 500) {
                     Toast.makeText(context, "An error occurred when trying to reset your password\nPlease try again", Toast.LENGTH_LONG).show();
-
                 }
             }
 
@@ -291,6 +290,66 @@ public class BountyHunterAPI {
                 }
             }
         });
+    }
+
+    public void getFugitiveStats(UUID userID) {
+        String token = preferences.getString("TOKEN", null);
+        Call<FugitiveStat> call = services.getFugitiveStats(token, userID);
+
+        call.enqueue(new Callback<FugitiveStat>() {
+            @Override
+            public void onResponse(Call<FugitiveStat> call, Response<FugitiveStat> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "Fugitive stats successfully retrieved", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 404) {
+                    Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 401) {
+                    Toast.makeText(context, "Authorization failed \n Please try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 500) {
+                    Toast.makeText(context, "Unable to retrieve Fugitive stats\nPlease try again", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FugitiveStat> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, "Failed to connect to the server \n Please close the application and try again", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    public void getBountyHunterStats(UUID userID) {
+        String token = preferences.getString("TOKEN", null);
+        Call<BountyHunterStat> call = services.getBountyHunterStats(token, userID);
+
+        call.enqueue(new Callback<BountyHunterStat>() {
+            @Override
+            public void onResponse(Call<BountyHunterStat> call, Response<BountyHunterStat> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "BountyHunter stats successfully retrieved", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 404) {
+                    Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 401) {
+                    Toast.makeText(context, "Authorization failed \n Please try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 500) {
+                    Toast.makeText(context, "Unable to retrieve BountyHunter stats\nPlease try again", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BountyHunterStat> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, "Failed to connect to the server \n Please close the application and try again", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
     }
 
     public boolean isEmailValid(CharSequence email) {
