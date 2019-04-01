@@ -3,7 +3,6 @@ package com.example.bountyhunterapi;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -29,7 +28,7 @@ public class BountyHunterAPI {
         services = RetrofitClientInstance.getRetrofitInstance(context).create(RetrofitServices.class);
     }
 
-    public void registerUser(String fistName, String lastName, String username, String email, String password, final registerCallBack callBack) {
+    public void registerUser(String fistName, String lastName, String username, String email, String password, final RegisterCallBack callBack) {
         Call<Void> call = services.registerUser(fistName, lastName, username, email, password);
 
         call.enqueue(new Callback<Void>() {
@@ -209,7 +208,7 @@ public class BountyHunterAPI {
 
     }
 
-    public void searchUser(String username, final SearchUsersCallBack callBack) {
+    public void searchUser(String username, final FoundUsersCallBack callBack) {
         String token = preferences.getString("TOKEN", null);
         Call<UserList> call = services.searchUser(token, username);
 
@@ -292,15 +291,16 @@ public class BountyHunterAPI {
         });
     }
 
-    public void getFugitiveStats(UUID userID) {
+    public void getFugitiveStats(UUID userID, final StatCallBack callBack) {
         String token = preferences.getString("TOKEN", null);
-        Call<FugitiveStat> call = services.getFugitiveStats(token, userID);
+        Call<Stat> call = services.getFugitiveStats(token, userID);
 
-        call.enqueue(new Callback<FugitiveStat>() {
+        call.enqueue(new Callback<Stat>() {
             @Override
-            public void onResponse(Call<FugitiveStat> call, Response<FugitiveStat> response) {
+            public void onResponse(Call<Stat> call, Response<Stat> response) {
                 if (response.code() == 200) {
                     Toast.makeText(context, "Fugitive stats successfully retrieved", Toast.LENGTH_LONG).show();
+                    callBack.onStatsRetrieved(response.body());
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 401) {
@@ -311,7 +311,7 @@ public class BountyHunterAPI {
             }
 
             @Override
-            public void onFailure(Call<FugitiveStat> call, Throwable t) {
+            public void onFailure(Call<Stat> call, Throwable t) {
                 if (t instanceof IOException) {
                     Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
                 } else {
@@ -321,15 +321,16 @@ public class BountyHunterAPI {
         });
     }
 
-    public void getBountyHunterStats(UUID userID) {
+    public void getBountyHunterStats(UUID userID,final StatCallBack callBack) {
         String token = preferences.getString("TOKEN", null);
-        Call<BountyHunterStat> call = services.getBountyHunterStats(token, userID);
+        Call<Stat> call = services.getBountyHunterStats(token, userID);
 
-        call.enqueue(new Callback<BountyHunterStat>() {
+        call.enqueue(new Callback<Stat>() {
             @Override
-            public void onResponse(Call<BountyHunterStat> call, Response<BountyHunterStat> response) {
+            public void onResponse(Call<Stat> call, Response<Stat> response) {
                 if (response.code() == 200) {
                     Toast.makeText(context, "BountyHunter stats successfully retrieved", Toast.LENGTH_LONG).show();
+                    callBack.onStatsRetrieved(response.body());
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 401) {
@@ -340,7 +341,7 @@ public class BountyHunterAPI {
             }
 
             @Override
-            public void onFailure(Call<BountyHunterStat> call, Throwable t) {
+            public void onFailure(Call<Stat> call, Throwable t) {
                 if (t instanceof IOException) {
                     Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
                 } else {
@@ -349,7 +350,185 @@ public class BountyHunterAPI {
             }
         });
 
+    }
 
+    public void getFriendsFollowers(UUID userID,final FoundUsersCallBack callBack) {
+        String token = preferences.getString("TOKEN", null);
+        Call<UserList> call = services.getFriendsFollowers(token, userID);
+
+        call.enqueue(new Callback<UserList>() {
+            @Override
+            public void onResponse(Call<UserList> call, Response<UserList> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "Followers successfully retrieved", Toast.LENGTH_LONG).show();
+                    callBack.onUsersFound(response.body().getUsers());
+                } else if (response.code() == 404) {
+                    Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 401) {
+                    Toast.makeText(context, "Authorization failed \n Please try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 500) {
+                    Toast.makeText(context, "Unable to retrieve followers\nPlease try again", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserList> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, "Failed to connect to the server \n Please close the application and try again", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+    }
+
+    public void getFriendsFollowing(UUID userID,final FoundUsersCallBack callBack) {
+        String token = preferences.getString("TOKEN", null);
+        Call<UserList> call = services.getFriendsFollowing(token, userID);
+
+        call.enqueue(new Callback<UserList>() {
+            @Override
+            public void onResponse(Call<UserList> call, Response<UserList> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "Following successfully retrieved", Toast.LENGTH_LONG).show();
+                    callBack.onUsersFound(response.body().getUsers());
+                } else if (response.code() == 404) {
+                    Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 401) {
+                    Toast.makeText(context, "Authorization failed \n Please try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 500) {
+                    Toast.makeText(context, "Unable to retrieve following\nPlease try again", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserList> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, "Failed to connect to the server \n Please close the application and try again", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+    }
+
+    public void addFriend(UUID userID) {
+        String token = preferences.getString("TOKEN", null);
+        Call<Void> call = services.addFriend(token, userID);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "User successfully added to your friends list", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 404) {
+                    Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 401) {
+                    Toast.makeText(context, "Authorization failed \n Please try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 500) {
+                    Toast.makeText(context, "Unable to add user to your friends list\nPlease try again", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, "Failed to connect to the server \n Please close the application and try again", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+    }
+
+    public void removeFriend(UUID userID) {
+        String token = preferences.getString("TOKEN", null);
+        Call<Void> call = services.removeFriend(token, userID);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "User successfully removed from your friends list", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 404) {
+                    Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 401) {
+                    Toast.makeText(context, "Authorization failed \n Please try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 500) {
+                    Toast.makeText(context, "Unable to remove user from your friends list\nPlease try again", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, "Failed to connect to the server \n Please close the application and try again", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    public void blockFriend(UUID userID) {
+        String token = preferences.getString("TOKEN", null);
+        Call<Void> call = services.blockFriend(token, userID);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "User successfully blocked", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 404) {
+                    Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 401) {
+                    Toast.makeText(context, "Authorization failed \n Please try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 500) {
+                    Toast.makeText(context, "Unable to block user\nPlease try again", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, "Failed to connect to the server \n Please close the application and try again", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    public void unblockFriend(UUID userID) {
+        String token = preferences.getString("TOKEN", null);
+        Call<Void> call = services.unblockFriend(token, userID);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(context, "User successfully unblocked", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 404) {
+                    Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 401) {
+                    Toast.makeText(context, "Authorization failed \n Please try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 500) {
+                    Toast.makeText(context, "Unable to unblock user\nPlease try again", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, "Failed to connect to the server \n Please close the application and try again", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     public boolean isEmailValid(CharSequence email) {
@@ -360,11 +539,17 @@ public class BountyHunterAPI {
         void onUserReturned(User user);
     }
 
-    public interface SearchUsersCallBack {
+    public interface FoundUsersCallBack {
         void onUsersFound(List<User> user);
     }
 
-    public interface registerCallBack {
+    public interface RegisterCallBack {
         void registrationSuccess(Boolean success);
     }
+
+    public interface StatCallBack {
+        void onStatsRetrieved(Stat stat);
+
+    }
+
 }

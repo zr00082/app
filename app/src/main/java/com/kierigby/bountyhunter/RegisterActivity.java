@@ -1,7 +1,6 @@
 package com.kierigby.bountyhunter;
 
 import android.os.Bundle;
-import android.service.autofill.RegexValidator;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -61,7 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
                 else if (api.isEmailValid(mEmailInput.getText().toString()) == false) {
                     Toast.makeText(getApplicationContext(), "Please enter a valid email address", Toast.LENGTH_LONG).show();
                 } else {
-                    api.registerUser(mFirstNameInput.getText().toString(), mLastNameInput.getText().toString(), mUsernameInput.getText().toString(), mEmailInput.getText().toString(), mConfirmPasswordInput.getText().toString(), new BountyHunterAPI.registerCallBack() {
+                    api.registerUser(mFirstNameInput.getText().toString(), mLastNameInput.getText().toString(), mUsernameInput.getText().toString(), mEmailInput.getText().toString(), mConfirmPasswordInput.getText().toString(), new BountyHunterAPI.RegisterCallBack() {
                         @Override
                         public void registrationSuccess(Boolean success) {
                                 NavUtils.navigateUpFromSameTask(RegisterActivity.this);
