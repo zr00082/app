@@ -41,26 +41,38 @@
         android:text="My Profile"
         />
 
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/keyboard_backspace"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="35dp" />
+
+
     <EditText
         android:id="@+id/etFirstName"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_margin="@dimen/_20sdp"
-        android:hint="Firstname"
+        android:hint="First name"
         android:inputType="text"
-        android:textColor="@color/yellow"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorLink="@color/white"
         android:textSize="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_title" />
+
     <EditText
         android:id="@+id/etLastname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_20sdp"
-        android:hint="Lastname"
+        android:hint="Last name"
         android:inputType="text"
         android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:textSize="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,9 +83,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_20sdp"
-        android:hint="username"
+        android:hint="Username"
         android:inputType="text"
         android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:textSize="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,9 +97,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
-        android:hint="email"
+        android:hint="Email"
         android:inputType="textEmailAddress"
         android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:textSize="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="@id/etUsername"
         app:layout_constraintStart_toStartOf="@id/etUsername"
@@ -96,13 +110,28 @@
         android:id="@+id/btEdit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_40sdp"
+        android:layout_marginBottom="100dp"
         android:background="@drawable/border_blue"
-        android:text="Edit profile"
+        android:text="Update profile"
         android:textAllCaps="false"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/etUsername"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/etUsername" />
+
+    <Button
+        android:id="@+id/btDelete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/border_red"
+        android:text="Delete profile"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/etUsername"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/etUsername" />
 
 </android.support.constraint.ConstraintLayout>

@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkblue"
-    >
+    tools:context=".Dashboard">
 
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_70sdp"
+        android:layout_height="@dimen/_78sdp"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:src="@drawable/logo"
@@ -21,12 +21,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
+    <ImageView
         android:id="@+id/viewSquare1"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/_30sdp"
-        android:background="@color/white"
+        app:srcCompat="@drawable/ic_user"
         app:layout_constraintBottom_toBottomOf="@id/ivLogo"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@id/viewSquare2"
@@ -34,30 +34,29 @@
         app:layout_constraintTop_toTopOf="@id/ivLogo"
         app:layout_constraintVertical_bias=".6" />
 
-    <View
+    <ImageView
         android:id="@+id/viewSquare2"
-        android:layout_width="34dp"
-        android:layout_height="35dp"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginBottom="4dp"
-        android:background="@color/white"
+        app:srcCompat="@drawable/bell"
         app:layout_constraintBottom_toBottomOf="@id/viewSquare1"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@id/viewSquare3"
         app:layout_constraintStart_toEndOf="@id/viewSquare1" />
 
-    <View
+    <ImageView
         android:id="@+id/viewSquare3"
-        android:layout_width="@dimen/_30sdp"
+        android:layout_width="@dimen/_35sdp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/_12sdp"
-        android:background="@color/white"
+        app:srcCompat="@drawable/logout_variant"
         app:layout_constraintBottom_toBottomOf="@id/ivLogo"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/viewSquare2"
         app:layout_constraintTop_toTopOf="@id/ivLogo"
-        app:layout_constraintVertical_bias="0.538" />
+        app:layout_constraintVertical_bias=".7" />
 
     <TextView
         android:id="@+id/viewRound"
@@ -65,7 +64,7 @@
         android:layout_height="0dp"
         android:background="@drawable/background_rounded"
         android:gravity="center"
-        android:text=""
+        android:text="1"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/viewSquare2"
         app:layout_constraintDimensionRatio="1:1"
@@ -94,7 +93,7 @@
         android:id="@+id/tvGameHistory"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:background="@drawable/sharp_background_blue"
         android:padding="@dimen/_8sdp"
         android:text="Game History"
@@ -109,7 +108,7 @@
         android:id="@+id/tvGameRules"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:background="@drawable/sharp_background_red"
         android:padding="@dimen/_8sdp"
         android:text="Game Rules"
