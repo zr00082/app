@@ -20,4 +20,7 @@
     <string name="pick_a_username_string">Pick a username</string>
     <string name="email_address_string">Email Address</string>
     <string name="confirm_password_string">Confirm your password</string>
+    <string name="my_profile_string">My Profile</string>
+    <string name="update_profile_string">Update profile</string>
+    <string name="delete_profile_string">Delete profile</string>
 </resources>

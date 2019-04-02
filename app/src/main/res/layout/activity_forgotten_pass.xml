@@ -94,7 +94,7 @@
         android:layout_marginRight="16dp"
         android:background="@color/red"
         android:textAllCaps="false"
-        android:text="Next"
+        android:text="@string/next_string"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:fontFamily="@font/moderat_regular"

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkblue"
@@ -16,6 +15,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/keyboard_backspace"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_top"/>
+
         <ImageView
             android:layout_width="@dimen/_100sdp"
             android:layout_height="0dp"
@@ -25,7 +34,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_user" />
+            app:srcCompat="@drawable/ic_user"
+            android:id="@+id/image_top"/>
     </android.support.constraint.ConstraintLayout>
     <TextView
         android:layout_width="0dp"
@@ -38,15 +48,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewTop"
-        android:text="My Profile"
+        android:text="@string/my_profile_string"
         />
-
-    <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/keyboard_backspace"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="35dp" />
 
 
     <EditText
@@ -54,7 +57,7 @@
         android:layout_width="0dp"
         android:layout_height="44dp"
         android:layout_margin="@dimen/_20sdp"
-        android:hint="First name"
+        android:hint="@string/first_name_string"
         android:inputType="text"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -69,7 +72,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_20sdp"
-        android:hint="Last name"
+        android:hint="@string/last_name_string"
         android:inputType="text"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -83,7 +86,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_20sdp"
-        android:hint="Username"
+        android:hint="@string/username_string"
         android:inputType="text"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -97,7 +100,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
-        android:hint="Email"
+        android:hint="@string/email_address_string"
         android:inputType="textEmailAddress"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -112,7 +115,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
         android:background="@drawable/border_blue"
-        android:text="Update profile"
+        android:text="@string/update_profile_string"
         android:textAllCaps="false"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -126,7 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:background="@drawable/border_red"
-        android:text="Delete profile"
+        android:text="@string/delete_profile_string"
         android:textAllCaps="false"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
