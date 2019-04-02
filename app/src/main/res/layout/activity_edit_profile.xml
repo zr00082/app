@@ -1,11 +1,11 @@
-?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkblue"
-    tools:context=".Profile">
+    >
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/viewTop"
@@ -16,30 +16,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="0dp"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/image_top"
-            android:background="@drawable/keyboard_backspace"
-            />
-
         <ImageView
             android:layout_width="@dimen/_100sdp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/_30sdp"
-            android:id="@+id/image_top"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-
-            app:srcCompat="@drawable/lock" />
+            app:srcCompat="@drawable/ic_user" />
     </android.support.constraint.ConstraintLayout>
     <TextView
         android:layout_width="0dp"
@@ -48,62 +34,104 @@
         android:textStyle="bold"
         android:textSize="30sp"
         android:gravity="center"
-        android:id="@+id/password_title"
+        android:id="@+id/profile_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewTop"
-        android:text="Change Password"
+        android:text="My Profile"
         />
 
-    <EditText
-        android:id="@+id/etExistingPassword"
-        android:layout_width="0dp"
+    <ImageButton
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_20sdp"
-        android:hint="Existing Password"
-        android:inputType="text"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_15sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_title" />
-    <EditText
-        android:id="@+id/etNewPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_20sdp"
-        android:hint="New Password"
-        android:inputType="text"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_15sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etExistingPassword" />
+        android:background="@drawable/keyboard_backspace"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="35dp" />
+
 
     <EditText
-        android:id="@+id/etConfirmNewPassword"
+        android:id="@+id/etFirstName"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_margin="@dimen/_20sdp"
-        android:hint="Confirm New Password"
+        android:hint="First name"
         android:inputType="text"
         android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorLink="@color/white"
         android:textSize="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etNewPassword" />
+        app:layout_constraintTop_toBottomOf="@id/profile_title" />
 
+    <EditText
+        android:id="@+id/etLastname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_20sdp"
+        android:hint="Last name"
+        android:inputType="text"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etFirstName" />
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_20sdp"
+        android:hint="Username"
+        android:inputType="text"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etLastname" />
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="@id/etUsername"
+        app:layout_constraintStart_toStartOf="@id/etUsername"
+        app:layout_constraintTop_toBottomOf="@id/etUsername" />
 
     <Button
-        android:id="@+id/btSubmit"
+        android:id="@+id/btEdit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_40sdp"
-        android:background="@drawable/border_red"
-        android:text="Submit"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/border_blue"
+        android:text="Update profile"
         android:textAllCaps="false"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/etExistingPassword"
-        app:layout_constraintStart_toStartOf="@id/etExistingPassword" />
+        app:layout_constraintEnd_toEndOf="@id/etUsername"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/etUsername" />
 
+    <Button
+        android:id="@+id/btDelete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/border_red"
+        android:text="Delete profile"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/etUsername"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/etUsername" />
+
+</android.support.constraint.ConstraintLayout>
