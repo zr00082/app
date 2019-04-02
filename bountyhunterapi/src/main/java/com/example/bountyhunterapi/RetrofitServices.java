@@ -55,4 +55,29 @@ public interface RetrofitServices {
     @FormUrlEncoded
     @POST("/users/resetpassword/{token}")
     Call<Void> resetPassword(@Path("token") String token,@Field("newpassword") String newPassword);
+
+    @GET("/users/stats/{id}/fugitive")
+    Call<Stat> getFugitiveStats(@Header("Authorization") String authKey, @Path("id") UUID userID);
+
+    @GET("/users/stats/{id}/bountyhunter")
+    Call<Stat> getBountyHunterStats(@Header("Authorization") String authKey, @Path("id") UUID userID);
+
+    @GET("/users/friends/{id}/followers")
+    Call<UserList> getFriendsFollowers(@Header("Authorization") String authKey, @Path("id") UUID userID);
+
+    @GET("/users/friends/{id}/following")
+    Call<UserList> getFriendsFollowing(@Header("Authorization") String authKey, @Path("id") UUID userID);
+
+    @POST("/users/friends/{id}/friend")
+    Call<Void> addFriend(@Header("Authorization") String authKey, @Path("id") UUID userID);
+
+    @DELETE("/users/friends/{id}/friend")
+    Call<Void> removeFriend(@Header("Authorization") String authKey, @Path("id") UUID userID);
+
+    @POST("/users/friends/{id}/block")
+    Call<Void> blockFriend(@Header("Authorization") String authKey, @Path("id") UUID userID);
+
+    @DELETE("/users/friends/{id}/block")
+    Call<Void> unblockFriend(@Header("Authorization") String authKey, @Path("id") UUID userID);
+
 }

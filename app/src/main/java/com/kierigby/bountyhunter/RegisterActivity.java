@@ -17,6 +17,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button mCreatAccountButton;
     private BountyHunterAPI api = new BountyHunterAPI(this);
     private EditText mFirstNameInput, mLastNameInput, mUsernameInput, mEmailInput, mPasswordInput, mConfirmPasswordInput;
+    private final String PASSWORD_REGEX= "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!])(?=.*[0-9])(?=.{8,})";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +53,20 @@ public class RegisterActivity extends AppCompatActivity {
                 if (mFirstNameInput.getText().toString().isEmpty() || mLastNameInput.getText().toString().isEmpty() || mEmailInput.getText().toString().isEmpty() || mUsernameInput.getText().toString().isEmpty() || mPasswordInput.getText().toString().isEmpty() || mConfirmPasswordInput.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please enter all the necessary information", Toast.LENGTH_LONG).show();
                 } else if (!mPasswordInput.getText().toString().equals(mConfirmPasswordInput.getText().toString())) {
-                    Toast.makeText(getApplicationContext(),"The passwords you entered do not match" ,Toast.LENGTH_LONG).show();
-                }else if(api.isEmailValid(mEmailInput.getText().toString())==false){
-                    Toast.makeText(getApplicationContext(),"Please enter a valid email address" ,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "The passwords you entered do not match", Toast.LENGTH_LONG).show();
+                }else if(!mConfirmPasswordInput.equals(PASSWORD_REGEX)){
+                    Toast.makeText(getApplicationContext(), "Your password must be 6 characters long and must contain: a capital letter, a number and a special character", Toast.LENGTH_LONG).show();
                 }
+                else if (api.isEmailValid(mEmailInput.getText().toString()) == false) {
+                    Toast.makeText(getApplicationContext(), "Please enter a valid email address", Toast.LENGTH_LONG).show();
+                } else {
+                    api.registerUser(mFirstNameInput.getText().toString(), mLastNameInput.getText().toString(), mUsernameInput.getText().toString(), mEmailInput.getText().toString(), mConfirmPasswordInput.getText().toString(), new BountyHunterAPI.RegisterCallBack() {
+                        @Override
+                        public void registrationSuccess(Boolean success) {
+                                NavUtils.navigateUpFromSameTask(RegisterActivity.this);
+                        }
+                    });
 
-                else {
-                    api.registerUser(mFirstNameInput.getText().toString(), mLastNameInput.getText().toString(),mUsernameInput.getText().toString(), mEmailInput.getText().toString(),mConfirmPasswordInput.getText().toString());
-                    NavUtils.navigateUpFromSameTask(RegisterActivity.this);
                 }
             }
         });
