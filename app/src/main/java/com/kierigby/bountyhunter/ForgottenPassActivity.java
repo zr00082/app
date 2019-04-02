@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.bountyhunterapi.BountyHunterAPI;
@@ -14,6 +15,7 @@ public class ForgottenPassActivity extends AppCompatActivity {
 
     private Button mNextButton;
     private EditText mEmailInput;
+    private ImageButton mBackButton;
     private BountyHunterAPI api = new BountyHunterAPI(this);
 
     @Override
@@ -21,7 +23,7 @@ public class ForgottenPassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotten_pass);
         addListenerToNextButton();
-
+        addListenerToBackButton();
     }
 
     public void addListenerToNextButton() {
@@ -40,6 +42,17 @@ public class ForgottenPassActivity extends AppCompatActivity {
                     api.resetPasswordRequest(mEmailInput.getText().toString());
                     NavUtils.navigateUpFromSameTask(ForgottenPassActivity.this);
                 }
+            }
+        });
+    }
+
+    public void addListenerToBackButton() {
+        mBackButton = findViewById(R.id.backFromForgottenPass);
+
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavUtils.navigateUpFromSameTask(ForgottenPassActivity.this);
             }
         });
     }
