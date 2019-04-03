@@ -27,6 +27,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_user" />
     </android.support.constraint.ConstraintLayout>
+
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -42,11 +43,19 @@
         />
 
     <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:background="@drawable/keyboard_backspace"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="35dp" />
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="50dp" />
+
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/reset_password"
+        tools:layout_editor_absoluteX="326dp"
+        tools:layout_editor_absoluteY="42dp" />
 
 
     <EditText
