@@ -28,15 +28,14 @@ public class BountyHunterAPI {
         services = RetrofitClientInstance.getRetrofitInstance(context).create(RetrofitServices.class);
     }
 
-    public void registerUser(String fistName, String lastName, String username, String email, String password, final RegisterCallBack callBack) {
+    public void registerUser(String fistName, String lastName, String username, String email, String password, final successCallBack callBack) {
         Call<Void> call = services.registerUser(fistName, lastName, username, email, password);
 
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 201) {
-                    callBack.registrationSuccess(true);
-                    Toast.makeText(context, "Your account was successfully registered", Toast.LENGTH_LONG).show();
+                    callBack.success(response.code());
                 } else if (response.code() == 500) {
                     try {
                         JSONObject errorObj = new JSONObject(response.errorBody().string());
@@ -177,7 +176,7 @@ public class BountyHunterAPI {
         });
     }
 
-    public void deleteUser(UUID userID, String password) {
+    public void deleteUser(UUID userID, String password,final successCallBack callBack) {
 
         String token = preferences.getString("TOKEN", null);
         Call<Void> call = services.deleteUser(token, userID, password);
@@ -186,7 +185,7 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 204) {
-                    Toast.makeText(context, "Your account was successfully deleted", Toast.LENGTH_LONG).show();
+                    callBack.success(response.code());
                 } else if (response.code() == 500) {
                     Toast.makeText(context, "An error occurred when trying to delete the account \n Please try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 404) {
@@ -543,8 +542,8 @@ public class BountyHunterAPI {
         void onUsersFound(List<User> user);
     }
 
-    public interface RegisterCallBack {
-        void registrationSuccess(Boolean success);
+    public interface successCallBack {
+        void success(int success);
     }
 
     public interface StatCallBack {

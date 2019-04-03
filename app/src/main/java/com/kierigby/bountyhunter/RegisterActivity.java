@@ -17,7 +17,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button mCreatAccountButton;
     private BountyHunterAPI api = new BountyHunterAPI(this);
     private EditText mFirstNameInput, mLastNameInput, mUsernameInput, mEmailInput, mPasswordInput, mConfirmPasswordInput;
-    private final String PASSWORD_REGEX= "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!])(?=.*[0-9])(?=.{8,})";
+    private final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!])(?=.*[0-9])(?=.{8,})";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,25 +50,39 @@ public class RegisterActivity extends AppCompatActivity {
         mCreatAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mFirstNameInput.getText().toString().isEmpty() || mLastNameInput.getText().toString().isEmpty() || mEmailInput.getText().toString().isEmpty() || mUsernameInput.getText().toString().isEmpty() || mPasswordInput.getText().toString().isEmpty() || mConfirmPasswordInput.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please enter all the necessary information", Toast.LENGTH_LONG).show();
-                } else if (!mPasswordInput.getText().toString().equals(mConfirmPasswordInput.getText().toString())) {
-                    Toast.makeText(getApplicationContext(), "The passwords you entered do not match", Toast.LENGTH_LONG).show();
-                }else if(!mConfirmPasswordInput.equals(PASSWORD_REGEX)){
-                    Toast.makeText(getApplicationContext(), "Your password must be 6 characters long and must contain: a capital letter, a number and a special character", Toast.LENGTH_LONG).show();
-                }
-                else if (api.isEmailValid(mEmailInput.getText().toString()) == false) {
-                    Toast.makeText(getApplicationContext(), "Please enter a valid email address", Toast.LENGTH_LONG).show();
-                } else {
-                    api.registerUser(mFirstNameInput.getText().toString(), mLastNameInput.getText().toString(), mUsernameInput.getText().toString(), mEmailInput.getText().toString(), mConfirmPasswordInput.getText().toString(), new BountyHunterAPI.RegisterCallBack() {
-                        @Override
-                        public void registrationSuccess(Boolean success) {
-                                NavUtils.navigateUpFromSameTask(RegisterActivity.this);
-                        }
-                    });
-
-                }
+                checkInputs();
             }
         });
+    }
+
+    public void checkInputs() {
+
+        String fistname = mFirstNameInput.getText().toString();
+        String lastname = mLastNameInput.getText().toString();
+        String email = mEmailInput.getText().toString();
+        String username = mUsernameInput.getText().toString();
+        String password = mPasswordInput.getText().toString();
+        String confirmPassword =mConfirmPasswordInput.getText().toString();
+
+        if (fistname.isEmpty() || lastname.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please enter all the necessary information", Toast.LENGTH_LONG).show();
+        } else if (!password.equals(confirmPassword)) {
+            Toast.makeText(getApplicationContext(), "The passwords you entered do not match", Toast.LENGTH_LONG).show();
+        } else if (!confirmPassword.equals(PASSWORD_REGEX)) {
+            Toast.makeText(getApplicationContext(), "Your password must be 6 characters long and must contain: a capital letter, a number and a special character", Toast.LENGTH_LONG).show();
+        } else if (api.isEmailValid(email) == false) {
+            Toast.makeText(getApplicationContext(), "Please enter a valid email address", Toast.LENGTH_LONG).show();
+        } else {
+            api.registerUser(fistname,lastname, username,email, confirmPassword, new BountyHunterAPI.successCallBack() {
+                @Override
+                public void success(int success) {
+                    if(success== 201) {
+                        NavUtils.navigateUpFromSameTask(RegisterActivity.this);
+                        Toast.makeText(getApplicationContext(), "Your account was successfully registered", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
+        }
     }
 }
