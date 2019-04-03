@@ -20,4 +20,6 @@
     <string name="pick_a_username_string">Pick a username</string>
     <string name="email_address_string">Email Address</string>
     <string name="confirm_password_string">Confirm your password</string>
+    <string name="stat_title_hunter">Your stats - Hunter</string>
+    <string name="stat_title_fugitive">Your stats - Fugitive</string>
 </resources>
