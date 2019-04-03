@@ -20,4 +20,6 @@
     <string name="pick_a_username_string">Pick a username</string>
     <string name="email_address_string">Email Address</string>
     <string name="confirm_password_string">Confirm your password</string>
+    <string name="search_username">Search for username</string>
+    <string name="find_friends_string">Find friends</string>
 </resources>
