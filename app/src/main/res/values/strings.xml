@@ -22,4 +22,7 @@
     <string name="confirm_password_string">Confirm your password</string>
     <string name="stat_title_hunter">Your stats - Hunter</string>
     <string name="stat_title_fugitive">Your stats - Fugitive</string>
+    <string name="search_username">Search for username</string>
+    <string name="find_friends_string">Find friends</string>
+
 </resources>
