@@ -20,9 +20,6 @@ public class MyFriendsActivity extends AppCompatActivity {
     }
 
     private void initFriendList() {
-        friendName.add("Azwad Rashid");
-        userName.add("Azwad98");
-
         friendName.add("Test Name");
         userName.add("username1");
 
