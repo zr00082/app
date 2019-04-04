@@ -73,7 +73,7 @@ public class BountyHunterAPI {
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if (response.code() == 200) {
                     preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                    preferences.edit().putString("TOKEN", "Bearer " + response.body().getToken()).apply();
+                    preferences.edit().putString("TOKEN", "Bearer " + response.body().getToken()).commit();
                     getLoggedInUser(preferences.getString("TOKEN", null), callBack);
 
                 } else if (response.code() == 401) {
@@ -242,7 +242,7 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 200) {
-                    Toast.makeText(context, "An email has been sent with the link to reset your password", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "An email has been sent with a link to reset your password", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "There is no user that links to the email entered \n Please enter the email the email you used to register your account", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 500) {
@@ -273,12 +273,11 @@ public class BountyHunterAPI {
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not the user account to change the password for\nPlease try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 401) {
-                    Toast.makeText(context, "The link you used to has expired\nPlease complete the forget password form again to be sent a new link", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "The link you used has expired\nPlease complete the forget password form again to be sent a new link", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 500) {
                     Toast.makeText(context, "An error occurred when trying to reset your password\nPlease try again", Toast.LENGTH_LONG).show();
                 }
             }
-
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 if (t instanceof IOException) {
@@ -351,16 +350,16 @@ public class BountyHunterAPI {
 
     }
 
-    public void getFriendsFollowers(UUID userID,final FoundUsersCallBack callBack) {
+    public void getFriendsFollowers(UUID userID,final FoundFriendsCallBack callBack) {
         String token = preferences.getString("TOKEN", null);
-        Call<UserList> call = services.getFriendsFollowers(token, userID);
+        Call<FriendList> call = services.getFriendsFollowers(token, userID);
 
-        call.enqueue(new Callback<UserList>() {
+        call.enqueue(new Callback<FriendList>() {
             @Override
-            public void onResponse(Call<UserList> call, Response<UserList> response) {
+            public void onResponse(Call<FriendList> call, Response<FriendList> response) {
                 if (response.code() == 200) {
                     Toast.makeText(context, "Followers successfully retrieved", Toast.LENGTH_LONG).show();
-                    callBack.onUsersFound(response.body().getUsers());
+                    callBack.onFriendsFound(response.body().getFriends());
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 401) {
@@ -371,7 +370,7 @@ public class BountyHunterAPI {
             }
 
             @Override
-            public void onFailure(Call<UserList> call, Throwable t) {
+            public void onFailure(Call<FriendList> call, Throwable t) {
                 if (t instanceof IOException) {
                     Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
                 } else {
@@ -379,19 +378,18 @@ public class BountyHunterAPI {
                 }
             }
         });
-
     }
 
-    public void getFriendsFollowing(UUID userID,final FoundUsersCallBack callBack) {
+    public void getFriendsFollowing(UUID userID,final FoundFriendsCallBack callBack) {
         String token = preferences.getString("TOKEN", null);
-        Call<UserList> call = services.getFriendsFollowing(token, userID);
+        Call<FriendList> call = services.getFriendsFollowing(token, userID);
 
-        call.enqueue(new Callback<UserList>() {
+        call.enqueue(new Callback<FriendList>() {
             @Override
-            public void onResponse(Call<UserList> call, Response<UserList> response) {
+            public void onResponse(Call<FriendList> call, Response<FriendList> response) {
                 if (response.code() == 200) {
                     Toast.makeText(context, "Following successfully retrieved", Toast.LENGTH_LONG).show();
-                    callBack.onUsersFound(response.body().getUsers());
+                    callBack.onFriendsFound(response.body().getFriends());
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 401) {
@@ -402,7 +400,7 @@ public class BountyHunterAPI {
             }
 
             @Override
-            public void onFailure(Call<UserList> call, Throwable t) {
+            public void onFailure(Call<FriendList> call, Throwable t) {
                 if (t instanceof IOException) {
                     Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
                 } else {
@@ -410,7 +408,6 @@ public class BountyHunterAPI {
                 }
             }
         });
-
     }
 
     public void addFriend(UUID userID) {
@@ -539,7 +536,7 @@ public class BountyHunterAPI {
     }
 
     public interface FoundUsersCallBack {
-        void onUsersFound(List<User> user);
+        void onUsersFound(List<User> users);
     }
 
     public interface successCallBack {
@@ -549,6 +546,10 @@ public class BountyHunterAPI {
     public interface StatCallBack {
         void onStatsRetrieved(Stat stat);
 
+    }
+
+    public interface FoundFriendsCallBack {
+        void onFriendsFound(List<Friend> friends);
     }
 
 }

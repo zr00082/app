@@ -6,9 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.bountyhunterapi.BountyHunterAPI;
+import com.example.bountyhunterapi.Friend;
+
+import java.util.List;
 
 public class LoggedInActivity extends AppCompatActivity {
-
+    private BountyHunterAPI api = new BountyHunterAPI(this);
     private ImageView profileImageView, notificationsImageView, logOutImageView;
     private TextView createGameTextView, gameHistoryTextView, gameRulesTextView;
 
@@ -73,26 +79,28 @@ public class LoggedInActivity extends AppCompatActivity {
     }
 
     private void addListenerToGameHistoryTextView() {
-    gameHistoryTextView=findViewById(R.id.tvGameHistory);
+        gameHistoryTextView = findViewById(R.id.tvGameHistory);
 
-    gameHistoryTextView.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+        gameHistoryTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        }
-    });
+            }
+        });
     }
 
     private void addListenerToGameRulesTextView() {
-    gameRulesTextView=findViewById(R.id.tvGameRules);
+        gameRulesTextView = findViewById(R.id.tvGameRules);
 
-    gameRulesTextView.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+        gameRulesTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        }
-    });
+            }
+        });
 
 
     }
+
+
 }

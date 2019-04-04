@@ -50,39 +50,43 @@ public class RegisterActivity extends AppCompatActivity {
         mCreatAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkInputs();
+                String fistname = mFirstNameInput.getText().toString();
+                String lastname = mLastNameInput.getText().toString();
+                String email = mEmailInput.getText().toString();
+                String username = mUsernameInput.getText().toString();
+                String password = mPasswordInput.getText().toString();
+                String confirmPassword =mConfirmPasswordInput.getText().toString();
+
+                if (checkInputs(fistname,lastname,email,username,password,confirmPassword)==true){
+                    api.registerUser(fistname,lastname, username,email, confirmPassword, new BountyHunterAPI.successCallBack() {
+                        @Override
+                        public void success(int success) {
+                            if(success== 201) {
+                                NavUtils.navigateUpFromSameTask(RegisterActivity.this);
+                                Toast.makeText(getApplicationContext(), "Your account was successfully registered", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
             }
         });
     }
 
-    public void checkInputs() {
-
-        String fistname = mFirstNameInput.getText().toString();
-        String lastname = mLastNameInput.getText().toString();
-        String email = mEmailInput.getText().toString();
-        String username = mUsernameInput.getText().toString();
-        String password = mPasswordInput.getText().toString();
-        String confirmPassword =mConfirmPasswordInput.getText().toString();
+    public boolean checkInputs(String fistname,String lastname, String email, String username, String password, String confirmPassword) {
 
         if (fistname.isEmpty() || lastname.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Please enter all the necessary information", Toast.LENGTH_LONG).show();
+            return false;
         } else if (!password.equals(confirmPassword)) {
             Toast.makeText(getApplicationContext(), "The passwords you entered do not match", Toast.LENGTH_LONG).show();
+            return false;
         } else if (!confirmPassword.equals(PASSWORD_REGEX)) {
             Toast.makeText(getApplicationContext(), "Your password must be 6 characters long and must contain: a capital letter, a number and a special character", Toast.LENGTH_LONG).show();
+        return false;
         } else if (api.isEmailValid(email) == false) {
             Toast.makeText(getApplicationContext(), "Please enter a valid email address", Toast.LENGTH_LONG).show();
-        } else {
-            api.registerUser(fistname,lastname, username,email, confirmPassword, new BountyHunterAPI.successCallBack() {
-                @Override
-                public void success(int success) {
-                    if(success== 201) {
-                        NavUtils.navigateUpFromSameTask(RegisterActivity.this);
-                        Toast.makeText(getApplicationContext(), "Your account was successfully registered", Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-
+            return false;
         }
+        return true;
     }
 }

@@ -63,10 +63,10 @@ public interface RetrofitServices {
     Call<Stat> getBountyHunterStats(@Header("Authorization") String authKey, @Path("id") UUID userID);
 
     @GET("/users/friends/{id}/followers")
-    Call<UserList> getFriendsFollowers(@Header("Authorization") String authKey, @Path("id") UUID userID);
+    Call<FriendList> getFriendsFollowers(@Header("Authorization") String authKey, @Path("id") UUID userID);
 
     @GET("/users/friends/{id}/following")
-    Call<UserList> getFriendsFollowing(@Header("Authorization") String authKey, @Path("id") UUID userID);
+    Call<FriendList> getFriendsFollowing(@Header("Authorization") String authKey, @Path("id") UUID userID);
 
     @POST("/users/friends/{id}/friend")
     Call<Void> addFriend(@Header("Authorization") String authKey, @Path("id") UUID userID);

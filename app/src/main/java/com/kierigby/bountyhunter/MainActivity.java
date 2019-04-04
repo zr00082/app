@@ -10,7 +10,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bountyhunterapi.BountyHunterAPI;
+import com.example.bountyhunterapi.Friend;
 import com.example.bountyhunterapi.User;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                             ((GlobalUser) getApplication()).setLoggedInUser(user);
                             Intent loggedInI = new Intent(MainActivity.this, LoggedInActivity.class);
                             startActivity(loggedInI);
+                            //friendsTest();
                         }
                     });
                 }
@@ -80,4 +84,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void friendsTest(){
+        api.getFriendsFollowers(((GlobalUser) getApplication()).getLoggedInUser().getId(), new BountyHunterAPI.FoundFriendsCallBack() {
+            @Override
+            public void onFriendsFound(List<Friend> friends) {
+                Toast.makeText(getApplicationContext(), friends.get(0).getFriend().getUsername(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
 }
