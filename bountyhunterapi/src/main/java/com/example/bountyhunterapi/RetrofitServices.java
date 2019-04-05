@@ -10,6 +10,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -38,11 +39,12 @@ public interface RetrofitServices {
     @GET("/users/me")
     Call<User> getLoggedInUser(@Header("Authorization") String authKey);
 
+    @FormUrlEncoded
     @PUT("/users/{id}")
-    Call<User> updateUser(@Header("Authorization") String authKey, @Path("id") UUID userID, @Body User updateInfo);
+    Call<User> updateUser(@Header("Authorization") String authKey, @Path("id") UUID userID, @Field("firstName") String firstName, @Field("lastName") String lastName,@Field("username") String username, @Field("email") String email);
 
     @FormUrlEncoded
-    @DELETE("/users/{id}")
+    @HTTP(method = "DELETE",path = "/users/{id}",hasBody = true)
     Call<Void> deleteUser(@Header("Authorization") String authKey,@Path("id") UUID userID,@Field("password") String password);
 
     @GET("/users/search/{username}")
@@ -63,10 +65,10 @@ public interface RetrofitServices {
     Call<Stat> getBountyHunterStats(@Header("Authorization") String authKey, @Path("id") UUID userID);
 
     @GET("/users/friends/{id}/followers")
-    Call<UserList> getFriendsFollowers(@Header("Authorization") String authKey, @Path("id") UUID userID);
+    Call<FriendList> getFriendsFollowers(@Header("Authorization") String authKey, @Path("id") UUID userID);
 
     @GET("/users/friends/{id}/following")
-    Call<UserList> getFriendsFollowing(@Header("Authorization") String authKey, @Path("id") UUID userID);
+    Call<FriendList> getFriendsFollowing(@Header("Authorization") String authKey, @Path("id") UUID userID);
 
     @POST("/users/friends/{id}/friend")
     Call<Void> addFriend(@Header("Authorization") String authKey, @Path("id") UUID userID);

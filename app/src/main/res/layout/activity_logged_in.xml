@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkblue"
-    tools:context=".Dashboard">
+    tools:context=".LoggedInActivity">
 
     <ImageView
         android:id="@+id/ivLogo"
@@ -15,48 +15,54 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:src="@drawable/logo"
         app:layout_constraintDimensionRatio="2:1"
-        app:layout_constraintEnd_toStartOf="@id/viewSquare1"
+        app:layout_constraintEnd_toStartOf="@id/profileImageView"
         app:layout_constraintHorizontal_bias=".3"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="@dimen/_20sdp" />
 
     <ImageView
-        android:id="@+id/viewSquare1"
+        android:id="@+id/profileImageView"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/_30sdp"
         app:layout_constraintBottom_toBottomOf="@id/ivLogo"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toStartOf="@id/viewSquare2"
+        app:layout_constraintEnd_toStartOf="@id/notificationsImageView"
         app:layout_constraintStart_toEndOf="@id/ivLogo"
         app:layout_constraintTop_toTopOf="@id/ivLogo"
         app:layout_constraintVertical_bias=".6"
+        android:layout_marginLeft="@dimen/_30sdp" />
         app:srcCompat="@drawable/ic_user" />
 
+
     <ImageView
-        android:id="@+id/viewSquare2"
+        android:id="@+id/notificationsImageView"
         android:layout_width="@dimen/_25sdp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/_8sdp"
-        app:layout_constraintBottom_toBottomOf="@id/viewSquare1"
+        app:srcCompat="@drawable/bell"
+        app:layout_constraintBottom_toBottomOf="@id/profileImageView"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toStartOf="@id/viewSquare3"
-        app:layout_constraintStart_toEndOf="@id/viewSquare1"
-        app:srcCompat="@drawable/bell" />
+        app:layout_constraintEnd_toStartOf="@id/logoutImageView"
+        app:layout_constraintStart_toEndOf="@id/profileImageView"
+        android:layout_marginLeft="@dimen/_8sdp" />
 
     <ImageView
-        android:id="@+id/viewSquare3"
+        android:id="@+id/logoutImageView"
         android:layout_width="@dimen/_35sdp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/_12sdp"
         app:layout_constraintBottom_toBottomOf="@id/ivLogo"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/viewSquare2"
+        app:layout_constraintStart_toEndOf="@id/notificationsImageView"
         app:layout_constraintTop_toTopOf="@id/ivLogo"
         app:layout_constraintVertical_bias=".7"
+        android:layout_marginLeft="@dimen/_12sdp" />
         app:srcCompat="@drawable/logout_variant" />
+
 
     <TextView
         android:id="@+id/viewRound"
@@ -66,11 +72,11 @@
         android:gravity="center"
         android:text="1"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/viewSquare2"
+        app:layout_constraintBottom_toTopOf="@id/notificationsImageView"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="@id/viewSquare2"
-        app:layout_constraintStart_toEndOf="@id/viewSquare2"
-        app:layout_constraintTop_toTopOf="@id/viewSquare2" />
+        app:layout_constraintEnd_toEndOf="@id/notificationsImageView"
+        app:layout_constraintStart_toEndOf="@id/notificationsImageView"
+        app:layout_constraintTop_toTopOf="@id/notificationsImageView" />
 
     <TextView
         android:id="@+id/tvCreateGame"
@@ -87,7 +93,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivLogo"
         app:layout_constraintVertical_bias=".30"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginRight="@dimen/_40sdp" />
 
     <TextView
         android:id="@+id/tvGameHistory"

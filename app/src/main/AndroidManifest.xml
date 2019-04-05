@@ -11,6 +11,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".ChangePasswordActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".EditProfileActivity" />
+        </activity>
+        <activity android:name=".EditProfileActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoggedInActivity" />
+        </activity>
+
         <activity android:name=".HunterStatsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,6 +54,7 @@
 
         <activity android:name=".ForgottenPassword" />
         <activity android:name=".EditProfile" />
+
         <activity android:name=".LoggedInActivity" />
         <activity android:name=".RegisterActivity">
             <meta-data

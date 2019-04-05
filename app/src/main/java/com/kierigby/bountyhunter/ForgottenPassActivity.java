@@ -16,12 +16,13 @@ public class ForgottenPassActivity extends AppCompatActivity {
     private Button mNextButton;
     private EditText mEmailInput;
     private ImageButton mBackButton;
-    private BountyHunterAPI api = new BountyHunterAPI(this);
+    private BountyHunterAPI api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotten_pass);
+        api= new BountyHunterAPI(this);
         addListenerToNextButton();
         addListenerToBackButton();
     }

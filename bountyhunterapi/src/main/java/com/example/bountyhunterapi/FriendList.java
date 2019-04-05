@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class UserList {
+public class FriendList {
     //Maps to the list of fruit objects
     @SerializedName("users")
-    private List<User> users;
+    private List<Friend> friends;
 
     /**
      * @return list of fruit objects
      */
-    public List<User> getUsers() {
-        return this.users;
+    public List<Friend> getFriends() {
+        return this.friends;
     }
 }

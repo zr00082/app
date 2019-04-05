@@ -15,35 +15,36 @@ import com.example.bountyhunterapi.BountyHunterAPI;
 import com.example.bountyhunterapi.Token;
 
 public class NewPasswordActivity extends AppCompatActivity {
-    private EditText mNewPasswordInput,mConfirmNewPasswordInput;
+    private EditText mNewPasswordInput, mConfirmNewPasswordInput;
     private Button mNewPasswordBtn;
     private ImageButton mBackArrow;
-    private BountyHunterAPI api = new BountyHunterAPI(this);
+    private BountyHunterAPI api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_password);
+        api= new BountyHunterAPI(this);
         addListenerToNewPasswordButton();
         addListenerToBackButton();
 
     }
 
-    public void addListenerToNewPasswordButton(){
-        mNewPasswordInput=findViewById(R.id.etNewPassword);
-        mConfirmNewPasswordInput=findViewById(R.id.etConfirmNewPassword);
-        mNewPasswordBtn=findViewById(R.id.btSubmit);
+    public void addListenerToNewPasswordButton() {
+        mNewPasswordInput = findViewById(R.id.etNewPassword);
+        mConfirmNewPasswordInput = findViewById(R.id.etConfirmNewPassword);
+        mNewPasswordBtn = findViewById(R.id.btSubmit);
 
         mNewPasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mNewPasswordInput.getText().toString().isEmpty()||mConfirmNewPasswordInput.getText().toString().isEmpty()){
+                if (mNewPasswordInput.getText().toString().isEmpty() || mConfirmNewPasswordInput.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please enter all the necessary information", Toast.LENGTH_LONG).show();
                 } else if (!mNewPasswordInput.getText().toString().equals(mConfirmNewPasswordInput.getText().toString())) {
                     Toast.makeText(getApplicationContext(), "The passwords you entered do not match", Toast.LENGTH_LONG).show();
-                }else{
-                    api.resetPassoword(getToken(),mConfirmNewPasswordInput.getText().toString());
-                                    NavUtils.navigateUpFromSameTask(NewPasswordActivity.this);
+                } else {
+                    api.resetPassoword(getToken(), mConfirmNewPasswordInput.getText().toString());
+                    NavUtils.navigateUpFromSameTask(NewPasswordActivity.this);
                 }
             }
         });
@@ -63,12 +64,11 @@ public class NewPasswordActivity extends AppCompatActivity {
             }
         });
     }
-            public String getToken() {
-                Intent deepLinkI = getIntent();
-                String token = "Bearer " + deepLinkI.getData().getQueryParameter("token");
-                Toast.makeText(getApplicationContext(), token, Toast.LENGTH_LONG).show();
 
-                return token;
+    public String getToken() {
+        Intent deepLinkI = getIntent();
+        String token = deepLinkI.getData().getQueryParameter("token");
+        return token;
 
-        }
+    }
 }
