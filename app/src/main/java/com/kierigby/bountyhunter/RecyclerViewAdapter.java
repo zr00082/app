@@ -2,6 +2,7 @@ package com.kierigby.bountyhunter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,20 +13,20 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends  RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
-    private ArrayList<String> mStatName;
-    private ArrayList<String> mActualStat;
+    private ArrayList<String> mTitle;
+    private ArrayList<String> mDesc;
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> statName, ArrayList<String> actualStat) {
-        this.mStatName = statName;
-        this.mActualStat = actualStat;
+    public RecyclerViewAdapter(Context context, ArrayList<String> title, ArrayList<String> desc) {
+        this.mTitle = title;
+        this.mDesc = desc;
         this.mContext = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_layout, viewGroup, false);
+        View view  = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_layout, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -33,25 +34,25 @@ public class RecyclerViewAdapter extends  RecyclerView.Adapter<RecyclerViewAdapt
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-        viewHolder.statName.setText(mStatName.get(i));
-        viewHolder.statScore.setText(mActualStat.get(i));
+        viewHolder.title.setText(mTitle.get(i));
+        viewHolder.desc.setText(mDesc.get(i));
 
     }
 
     @Override
     public int getItemCount() {
-        return mStatName.size();
+        return mTitle.size();
     }
 
     public  class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        TextView statName;
-        TextView statScore;
+        TextView title;
+        TextView desc;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            statName = itemView.findViewById(R.id.statTitle);
-            statScore = itemView.findViewById(R.id.actualStat);
+            title = itemView.findViewById(R.id.title);
+            desc = itemView.findViewById(R.id.desc);
         }
     }
 }

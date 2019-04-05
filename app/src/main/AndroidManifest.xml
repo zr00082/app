@@ -26,8 +26,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SearchFriendActivity"></activity>
-        <activity android:name=".MyFriendsActivity" />
+        <activity android:name=".SearchFriendActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MyFriendsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity android:name=".ForgottenPassword" />
         <activity android:name=".EditProfile" />
