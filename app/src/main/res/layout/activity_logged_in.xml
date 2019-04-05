@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_78sdp"
+        android:layout_height="@dimen/_60sdp"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:src="@drawable/logo"
@@ -27,7 +27,6 @@
         android:layout_width="@dimen/_30sdp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/_30sdp"
-        app:srcCompat="@drawable/ic_user"
         app:layout_constraintBottom_toBottomOf="@id/ivLogo"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@id/notificationsImageView"
@@ -35,6 +34,8 @@
         app:layout_constraintTop_toTopOf="@id/ivLogo"
         app:layout_constraintVertical_bias=".6"
         android:layout_marginLeft="@dimen/_30sdp" />
+        app:srcCompat="@drawable/ic_user" />
+
 
     <ImageView
         android:id="@+id/notificationsImageView"
@@ -53,7 +54,6 @@
         android:layout_width="@dimen/_35sdp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/_12sdp"
-        app:srcCompat="@drawable/logout_variant"
         app:layout_constraintBottom_toBottomOf="@id/ivLogo"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,6 +61,8 @@
         app:layout_constraintTop_toTopOf="@id/ivLogo"
         app:layout_constraintVertical_bias=".7"
         android:layout_marginLeft="@dimen/_12sdp" />
+        app:srcCompat="@drawable/logout_variant" />
+
 
     <TextView
         android:id="@+id/viewRound"
@@ -119,9 +121,24 @@
         android:text="Game Rules"
         android:textColor="@color/white"
         android:textSize="@dimen/_25sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvMyFriends"
         app:layout_constraintEnd_toEndOf="@id/tvCreateGame"
         app:layout_constraintStart_toStartOf="@id/tvCreateGame"
         app:layout_constraintTop_toBottomOf="@id/tvGameHistory" />
+
+    <TextView
+        android:id="@+id/tvMyFriends"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:background="@drawable/sharp_background_beige"
+        android:padding="@dimen/_8sdp"
+        android:text="My Friends"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_25sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/tvCreateGame"
+        app:layout_constraintStart_toStartOf="@id/tvCreateGame"
+        app:layout_constraintTop_toBottomOf="@id/tvGameRules" />
 
 </android.support.constraint.ConstraintLayout>

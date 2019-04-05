@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".ChangePasswordActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -20,6 +21,40 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoggedInActivity" />
         </activity>
+
+        <activity android:name=".HunterStatsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".FugitiveStatsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".SearchFriendActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MyFriendsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ForgottenPassword" />
+        <activity android:name=".EditProfile" />
+
         <activity android:name=".LoggedInActivity" />
         <activity android:name=".RegisterActivity">
             <meta-data
@@ -41,7 +76,8 @@
         <activity android:name=".NewPasswordActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

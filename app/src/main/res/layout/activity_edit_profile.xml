@@ -3,17 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkblue"
-    >
+    android:background="@color/darkblue">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/viewTop"
-        android:layout_width="0dp"
+        android:layout_width="411dp"
         android:layout_height="wrap_content"
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        >
 
         <ImageButton
             android:id="@+id/backFromEditProfile"
@@ -38,12 +35,11 @@
             app:srcCompat="@drawable/ic_user"
             android:id="@+id/image_top"/>
     </android.support.constraint.ConstraintLayout>
+
     <TextView
-        android:layout_width="0dp"
+        android:id="@+id/profile_title"
+        android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="30sp"
         android:gravity="center"
         android:id="@+id/profile_title"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,10 +48,24 @@
         android:text="@string/my_profile_string"
         />
 
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/keyboard_backspace"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="50dp" />
+
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/reset_password"
+        tools:layout_editor_absoluteX="326dp"
+        tools:layout_editor_absoluteY="42dp" />
 
     <EditText
         android:id="@+id/etFirstName"
-        android:layout_width="0dp"
+        android:layout_width="360dp"
         android:layout_height="44dp"
         android:layout_margin="@dimen/_20sdp"
         android:hint="@string/first_name_string"
@@ -64,13 +74,12 @@
         android:textColorHint="@color/white"
         android:textColorLink="@color/white"
         android:textSize="@dimen/_15sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_title" />
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="275dp" />
 
     <EditText
         android:id="@+id/etLastname"
-        android:layout_width="0dp"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_20sdp"
         android:hint="@string/last_name_string"
@@ -78,13 +87,12 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="@dimen/_15sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etFirstName" />
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="345dp" />
 
     <EditText
         android:id="@+id/etUsername"
-        android:layout_width="0dp"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_20sdp"
         android:hint="@string/username_string"
@@ -92,13 +100,12 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="@dimen/_15sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etLastname" />
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="418dp" />
 
     <EditText
         android:id="@+id/etEmail"
-        android:layout_width="0dp"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
         android:hint="@string/email_address_string"
@@ -106,36 +113,29 @@
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="@dimen/_15sdp"
-        app:layout_constraintEnd_toEndOf="@id/etUsername"
-        app:layout_constraintStart_toStartOf="@id/etUsername"
-        app:layout_constraintTop_toBottomOf="@id/etUsername" />
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="491dp" />
 
     <Button
         android:id="@+id/btEdit"
-        android:layout_width="0dp"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
         android:background="@drawable/border_blue"
         android:text="@string/update_profile_string"
         android:textAllCaps="false"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/etUsername"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/etUsername" />
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="583dp" />
 
     <Button
         android:id="@+id/btDelete"
-        android:layout_width="0dp"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
         android:background="@drawable/border_red"
         android:text="@string/delete_profile_string"
         android:textAllCaps="false"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/etUsername"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/etUsername" />
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="643dp" />
 
 </android.support.constraint.ConstraintLayout>
