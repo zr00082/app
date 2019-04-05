@@ -3,6 +3,7 @@ package com.example.bountyhunterapi;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -26,6 +27,7 @@ public class BountyHunterAPI {
     public BountyHunterAPI(Context context) {
         this.context = context;
         services = RetrofitClientInstance.getRetrofitInstance(context).create(RetrofitServices.class);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this.context);
     }
 
     public void registerUser(String fistName, String lastName, String username, String email, String password, final successCallBack callBack) {
@@ -72,8 +74,8 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if (response.code() == 200) {
-                    preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                    preferences.edit().putString("TOKEN", "Bearer " + response.body().getToken()).commit();
+                    // preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                    preferences.edit().putString("TOKEN", "Bearer " + response.body().getToken()).apply();
                     getLoggedInUser(preferences.getString("TOKEN", null), callBack);
 
                 } else if (response.code() == 401) {
@@ -120,7 +122,7 @@ public class BountyHunterAPI {
         });
     }
 
-    public void getUser(UUID userID, final FoundUserCallBack callBack) {
+    public void getUser(UUID userID) {
         String token = preferences.getString("TOKEN", null);
         Call<User> call = services.getUser(token, userID);
 
@@ -128,10 +130,11 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 200) {
-                    callBack.onUserReturned(response.body());
                     Toast.makeText(context, "User account was found", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find the user account with the specified id \n Please try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 401) {
+                    Toast.makeText(context, "Authorization failed \n Please try again", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -146,16 +149,17 @@ public class BountyHunterAPI {
         });
     }
 
-    public void updateUser(UUID userID, User updateUser, final FoundUserCallBack callBack) {
+    public void updateUser(UUID userID, String firstname, String lastname, String username, String email, final FoundUserCallBack callBack) {
         String token = preferences.getString("TOKEN", null);
-        Call<User> call = services.updateUser(token, userID, updateUser);
+        Call<User> call = services.updateUser(token, userID, firstname, lastname, username, email);
 
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.code() == 200) {
-                    callBack.onUserReturned(response.body());
+                Log.d("Response", call.request().toString());
+                if (response.code() == 201) {
                     Toast.makeText(context, "User account information was successfully updated", Toast.LENGTH_LONG).show();
+                    callBack.onUserReturned(response.body());
                 } else if (response.code() == 500) {
                     Toast.makeText(context, "An error occurred when trying to update the user information\n Please try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 404) {
@@ -176,7 +180,7 @@ public class BountyHunterAPI {
         });
     }
 
-    public void deleteUser(UUID userID, String password,final successCallBack callBack) {
+    public void deleteUser(UUID userID, String password, final successCallBack callBack) {
 
         String token = preferences.getString("TOKEN", null);
         Call<Void> call = services.deleteUser(token, userID, password);
@@ -184,8 +188,10 @@ public class BountyHunterAPI {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d("Response", call.request().toString());
                 if (response.code() == 204) {
                     callBack.success(response.code());
+                    Toast.makeText(context, "Your account was successfully deleted", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 500) {
                     Toast.makeText(context, "An error occurred when trying to delete the account \n Please try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 404) {
@@ -278,6 +284,7 @@ public class BountyHunterAPI {
                     Toast.makeText(context, "An error occurred when trying to reset your password\nPlease try again", Toast.LENGTH_LONG).show();
                 }
             }
+
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 if (t instanceof IOException) {
@@ -319,7 +326,7 @@ public class BountyHunterAPI {
         });
     }
 
-    public void getBountyHunterStats(UUID userID,final StatCallBack callBack) {
+    public void getBountyHunterStats(UUID userID, final StatCallBack callBack) {
         String token = preferences.getString("TOKEN", null);
         Call<Stat> call = services.getBountyHunterStats(token, userID);
 
@@ -350,7 +357,7 @@ public class BountyHunterAPI {
 
     }
 
-    public void getFriendsFollowers(UUID userID,final FoundFriendsCallBack callBack) {
+    public void getFriendsFollowers(UUID userID, final FoundFriendsCallBack callBack) {
         String token = preferences.getString("TOKEN", null);
         Call<FriendList> call = services.getFriendsFollowers(token, userID);
 
@@ -374,13 +381,15 @@ public class BountyHunterAPI {
                 if (t instanceof IOException) {
                     Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
                 } else {
+                    Log.d("Response", call.request().toString());
+                    Log.d("Response", t.getMessage());
                     Toast.makeText(context, "Failed to connect to the server \n Please close the application and try again", Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
 
-    public void getFriendsFollowing(UUID userID,final FoundFriendsCallBack callBack) {
+    public void getFriendsFollowing(UUID userID, final FoundFriendsCallBack callBack) {
         String token = preferences.getString("TOKEN", null);
         Call<FriendList> call = services.getFriendsFollowing(token, userID);
 

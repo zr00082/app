@@ -21,12 +21,13 @@ public class MainActivity extends AppCompatActivity {
     private EditText mPasswordInput;
     private EditText mUsernameInput;
     private TextView mForgotPasswordTextView;
-    private BountyHunterAPI api = new BountyHunterAPI(this);
+    private BountyHunterAPI api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        api= new BountyHunterAPI(this);
         addListenerToLoginButton();
         addListenerToRegisterButton();
         addListenerToForgotPasswordTextView();
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                             ((GlobalUser) getApplication()).setLoggedInUser(user);
                             Intent loggedInI = new Intent(MainActivity.this, LoggedInActivity.class);
                             startActivity(loggedInI);
-                            //friendsTest();
+                            friendsTest();
                         }
                     });
                 }
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void friendsTest(){
-        api.getFriendsFollowers(((GlobalUser) getApplication()).getLoggedInUser().getId(), new BountyHunterAPI.FoundFriendsCallBack() {
+        api.getFriendsFollowing(((GlobalUser) getApplication()).getLoggedInUser().getId(), new BountyHunterAPI.FoundFriendsCallBack() {
             @Override
             public void onFriendsFound(List<Friend> friends) {
                 Toast.makeText(getApplicationContext(), friends.get(0).getFriend().getUsername(), Toast.LENGTH_LONG).show();

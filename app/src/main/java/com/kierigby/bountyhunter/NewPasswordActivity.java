@@ -18,12 +18,13 @@ public class NewPasswordActivity extends AppCompatActivity {
     private EditText mNewPasswordInput, mConfirmNewPasswordInput;
     private Button mNewPasswordBtn;
     private ImageButton mBackArrow;
-    private BountyHunterAPI api = new BountyHunterAPI(this);
+    private BountyHunterAPI api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_password);
+        api= new BountyHunterAPI(this);
         addListenerToNewPasswordButton();
         addListenerToBackButton();
 

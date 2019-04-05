@@ -15,7 +15,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private ImageButton mbackButton;
     private Button mCreatAccountButton;
-    private BountyHunterAPI api = new BountyHunterAPI(this);
+    private BountyHunterAPI api;
     private EditText mFirstNameInput, mLastNameInput, mUsernameInput, mEmailInput, mPasswordInput, mConfirmPasswordInput;
     private final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!])(?=.*[0-9])(?=.{8,})";
 
@@ -23,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
+        api= new BountyHunterAPI(this);
         addListenerToArrow();
         addListenerToCreateAccountButton();
     }

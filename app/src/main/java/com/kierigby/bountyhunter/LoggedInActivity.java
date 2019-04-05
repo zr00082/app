@@ -14,7 +14,6 @@ import com.example.bountyhunterapi.Friend;
 import java.util.List;
 
 public class LoggedInActivity extends AppCompatActivity {
-    private BountyHunterAPI api = new BountyHunterAPI(this);
     private ImageView profileImageView, notificationsImageView, logOutImageView;
     private TextView createGameTextView, gameHistoryTextView, gameRulesTextView;
 

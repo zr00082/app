@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class Friend {
     @SerializedName("id")
-    private UUID id;
+    private int id;
     @SerializedName("sender")
     private UUID sender;
     @SerializedName("receiver")
@@ -16,7 +16,7 @@ public class Friend {
     @SerializedName(value = "friend",alternate = {"followingUser","followedBy"})
     private User friend;
 
-    public Friend(UUID id, UUID sender, UUID receiver, boolean blocked, User friend) {
+    public Friend(int id, UUID sender, UUID receiver, boolean blocked, User friend) {
         this.id = id;
         this.sender = sender;
         this.receiver = receiver;
@@ -24,7 +24,7 @@ public class Friend {
         this.friend = friend;
     }
 
-    public UUID getId() {
+    public int getId() {
         return this.id;
     }
 
