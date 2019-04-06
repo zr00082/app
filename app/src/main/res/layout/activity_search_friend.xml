@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkblue"
@@ -9,24 +8,32 @@
 
     <ImageButton
 
-        android:id="@+id/imageButton"
+        android:id="@+id/backArrowFromSearchFriends"
         android:layout_width="45dp"
         android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="700dp"
+        android:layout_marginRight="700dp"
         android:background="@drawable/keyboard_backspace"
-        tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="20dp" />
+        app:layout_constraintBottom_toTopOf="@+id/tvTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:layout_marginTop="10dp"
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="13dp"
         android:gravity="center"
         android:padding="@dimen/_10sdp"
-        android:text="Search For Friends"
+        android:text="@string/find_friends_string"
         android:textColor="@color/white"
         android:textSize="@dimen/_18sdp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/edit_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
