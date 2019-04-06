@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
                             ((GlobalUser) getApplication()).setLoggedInUser(user);
                             Intent loggedInI = new Intent(MainActivity.this, LoggedInActivity.class);
                             startActivity(loggedInI);
-                            friendsTest();
                         }
                     });
                 }

@@ -36,4 +36,5 @@
     <string name="friends_string">My Friends</string>
     <string name="stat_name_string">Stat Name</string>
     <string name="actual_stat_string">Actual Stat</string>
+    <string name="friend_s_name_string">Friend\'s Name</string>
 </resources>

@@ -41,8 +41,8 @@ public class StatsActivity extends AppCompatActivity {
     private void initRecyclerView(){
 
         RecyclerView recyclerView = findViewById(R.id.fugitive_recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mStatName, mActualStat);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //FriendsRecyclerViewAdapter adapter = new FriendsRecyclerViewAdapter(this, mStatName, mActualStat);
+        //recyclerView.setAdapter(adapter);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

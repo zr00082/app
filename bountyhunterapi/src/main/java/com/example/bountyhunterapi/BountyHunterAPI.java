@@ -365,7 +365,6 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<FriendList> call, Response<FriendList> response) {
                 if (response.code() == 200) {
-                    Toast.makeText(context, "Followers successfully retrieved", Toast.LENGTH_LONG).show();
                     callBack.onFriendsFound(response.body().getFriends());
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
@@ -397,7 +396,6 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<FriendList> call, Response<FriendList> response) {
                 if (response.code() == 200) {
-                    Toast.makeText(context, "Following successfully retrieved", Toast.LENGTH_LONG).show();
                     callBack.onFriendsFound(response.body().getFriends());
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();

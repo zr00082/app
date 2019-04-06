@@ -15,7 +15,7 @@ import java.util.List;
 
 public class LoggedInActivity extends AppCompatActivity {
     private ImageView profileImageView, notificationsImageView, logOutImageView;
-    private TextView createGameTextView, gameHistoryTextView, gameRulesTextView;
+    private TextView createGameTextView, gameHistoryTextView, gameRulesTextView,myFriendsTextView;
 
 
     @Override
@@ -24,6 +24,8 @@ public class LoggedInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logged_in);
         addListenerToProfileImageView();
         addListenerToLogoutImageView();
+        addListenerToMyFriendsTextView();
+        addListenerToGameHistoryTextView();
     }
 
     private void addListenerToProfileImageView() {
@@ -83,7 +85,8 @@ public class LoggedInActivity extends AppCompatActivity {
         gameHistoryTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent statsI = new Intent(LoggedInActivity.this, StatsActivity.class);
+                startActivity(statsI);
             }
         });
     }
@@ -101,5 +104,18 @@ public class LoggedInActivity extends AppCompatActivity {
 
     }
 
+    private void addListenerToMyFriendsTextView() {
+        myFriendsTextView = findViewById(R.id.tvMyFriends);
+
+        myFriendsTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent friendsI = new Intent(LoggedInActivity.this, MyFriendsActivity.class);
+                startActivity(friendsI);
+            }
+        });
+
+
+    }
 
 }
