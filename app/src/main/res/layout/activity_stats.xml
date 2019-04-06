@@ -7,19 +7,33 @@
     android:background="@color/darkblue"
     tools:context=".FugitiveStatsActivity">
 
+    <ImageButton
+        android:id="@+id/image_arrow_button"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/keyboard_backspace"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
 
     <TextView
         android:id="@+id/fStatTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/stat_title_hunter"
+        android:text="@string/stat_title_fugitive"
         android:fontFamily="@font/moderat_bold"
         android:textColor="@color/white"
         android:textSize="@dimen/_20sdp"
         android:gravity="center"
+        android:layout_toRightOf="@+id/image_arrow_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/image_arrow_button"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
@@ -33,7 +47,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fStatTitle"
         app:layout_constraintVertical_bias="0.019"
-        android:id="@+id/hunter_recycler_view">
+        android:id="@+id/fugitive_recycler_view">
 
     </android.support.v7.widget.RecyclerView>
 </android.support.constraint.ConstraintLayout>
