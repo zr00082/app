@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkblue"
-    tools:context=".FugitiveStatsActivity">
+    tools:context=".StatsActivity">
 
     <ImageButton
-        android:id="@+id/image_arrow_button"
+        android:id="@+id/backFromStats"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
@@ -25,15 +25,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/stat_title_fugitive"
+        android:text="@string/stat_title_string"
         android:fontFamily="@font/moderat_bold"
         android:textColor="@color/white"
-        android:textSize="@dimen/_20sdp"
+        android:textSize="30sp"
         android:gravity="center"
-        android:layout_toRightOf="@+id/image_arrow_button"
+        android:layout_toRightOf="@+id/backFromStats"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image_arrow_button"
+        app:layout_constraintStart_toEndOf="@+id/backFromStats"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView

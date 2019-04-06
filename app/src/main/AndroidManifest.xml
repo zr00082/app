@@ -22,14 +22,7 @@
                 android:value=".LoggedInActivity" />
         </activity>
 
-        <activity android:name=".HunterStatsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".FugitiveStatsActivity">
+        <activity android:name=".StatsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
