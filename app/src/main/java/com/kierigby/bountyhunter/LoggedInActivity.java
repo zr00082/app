@@ -6,16 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.bountyhunterapi.BountyHunterAPI;
-import com.example.bountyhunterapi.Friend;
-
-import java.util.List;
 
 public class LoggedInActivity extends AppCompatActivity {
-    private ImageView profileImageView, notificationsImageView, logOutImageView;
-    private TextView createGameTextView, gameHistoryTextView, gameRulesTextView,myFriendsTextView;
 
 
     @Override
@@ -29,7 +21,7 @@ public class LoggedInActivity extends AppCompatActivity {
     }
 
     private void addListenerToProfileImageView() {
-        profileImageView = findViewById(R.id.profileImageView);
+        ImageView profileImageView = findViewById(R.id.profileImageView);
 
         profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +34,7 @@ public class LoggedInActivity extends AppCompatActivity {
     }
 
     private void addListenterToNotificationsImageView() {
-        notificationsImageView = findViewById(R.id.notificationsImageView);
+        ImageView notificationsImageView = findViewById(R.id.notificationsImageView);
 
         notificationsImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +47,7 @@ public class LoggedInActivity extends AppCompatActivity {
     }
 
     private void addListenerToLogoutImageView() {
-        logOutImageView = findViewById(R.id.logoutImageView);
+        ImageView logOutImageView = findViewById(R.id.logoutImageView);
 
         logOutImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +61,7 @@ public class LoggedInActivity extends AppCompatActivity {
     }
 
     private void addListenerToCreateGameTextView() {
-        createGameTextView = findViewById(R.id.tvCreateGame);
+        TextView createGameTextView = findViewById(R.id.tvCreateGame);
 
         createGameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +72,7 @@ public class LoggedInActivity extends AppCompatActivity {
     }
 
     private void addListenerToGameHistoryTextView() {
-        gameHistoryTextView = findViewById(R.id.tvGameHistory);
+        TextView gameHistoryTextView = findViewById(R.id.tvGameHistory);
 
         gameHistoryTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +84,7 @@ public class LoggedInActivity extends AppCompatActivity {
     }
 
     private void addListenerToGameRulesTextView() {
-        gameRulesTextView = findViewById(R.id.tvGameRules);
+        TextView gameRulesTextView = findViewById(R.id.tvGameRules);
 
         gameRulesTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +97,7 @@ public class LoggedInActivity extends AppCompatActivity {
     }
 
     private void addListenerToMyFriendsTextView() {
-        myFriendsTextView = findViewById(R.id.tvMyFriends);
+        TextView myFriendsTextView = findViewById(R.id.tvMyFriends);
 
         myFriendsTextView.setOnClickListener(new View.OnClickListener() {
             @Override

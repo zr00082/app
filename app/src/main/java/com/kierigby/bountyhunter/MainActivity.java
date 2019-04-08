@@ -17,10 +17,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button mLoginButton, mRegisterButton;
     private EditText mPasswordInput;
     private EditText mUsernameInput;
-    private TextView mForgotPasswordTextView;
     private BountyHunterAPI api;
 
     @Override
@@ -34,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addListenerToLoginButton() {
-        mLoginButton = findViewById(R.id.loginBtn);
+        Button mLoginButton = findViewById(R.id.loginBtn);
         mUsernameInput = findViewById(R.id.loginUsernameEditText);
         mPasswordInput = findViewById(R.id.loginPasswordEditText);
 
@@ -61,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addListenerToRegisterButton() {
-        mRegisterButton = findViewById(R.id.registerBtn);
+        Button mRegisterButton = findViewById(R.id.registerBtn);
 
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,23 +71,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addListenerToForgotPasswordTextView() {
-        mForgotPasswordTextView = findViewById(R.id.forgotPasswordtextView);
+        TextView mForgotPasswordTextView = findViewById(R.id.forgotPasswordtextView);
 
         mForgotPasswordTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent forgotPasswordI = new Intent(MainActivity.this, ForgottenPassActivity.class);
                 startActivity(forgotPasswordI);
-            }
-        });
-    }
-
-    private void friendsTest(){
-        api.getFriendsFollowing(((GlobalUser) getApplication()).getLoggedInUser().getId(), new BountyHunterAPI.FoundFriendsCallBack() {
-            @Override
-            public void onFriendsFound(List<Friend> friends) {
-                Toast.makeText(getApplicationContext(), friends.get(0).getFriend().getUsername(), Toast.LENGTH_LONG).show();
-
             }
         });
     }

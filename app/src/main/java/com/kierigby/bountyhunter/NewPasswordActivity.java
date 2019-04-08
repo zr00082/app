@@ -1,23 +1,18 @@
 package com.kierigby.bountyhunter;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import com.example.bountyhunterapi.BountyHunterAPI;
-import com.example.bountyhunterapi.Token;
 
 public class NewPasswordActivity extends AppCompatActivity {
     private EditText mNewPasswordInput, mConfirmNewPasswordInput;
-    private Button mNewPasswordBtn;
-    private ImageButton mBackArrow;
     private BountyHunterAPI api;
 
     @Override
@@ -33,7 +28,7 @@ public class NewPasswordActivity extends AppCompatActivity {
     public void addListenerToNewPasswordButton() {
         mNewPasswordInput = findViewById(R.id.etNewPassword);
         mConfirmNewPasswordInput = findViewById(R.id.etConfirmNewPassword);
-        mNewPasswordBtn = findViewById(R.id.btSubmit);
+        Button mNewPasswordBtn = findViewById(R.id.btSubmit);
 
         mNewPasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +48,7 @@ public class NewPasswordActivity extends AppCompatActivity {
     }
 
     public void addListenerToBackButton() {
-        mBackArrow = findViewById(R.id.backFromSetNewPass);
+        ImageButton mBackArrow = findViewById(R.id.backFromSetNewPass);
         mBackArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

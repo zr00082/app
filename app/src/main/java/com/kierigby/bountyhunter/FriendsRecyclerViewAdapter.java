@@ -1,7 +1,6 @@
 package com.kierigby.bountyhunter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,45 +8,41 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.bountyhunterapi.BountyHunterAPI;
 import com.example.bountyhunterapi.Friend;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class FriendsRecyclerViewAdapter extends  RecyclerView.Adapter<FriendsRecyclerViewAdapter.MyViewHolder>{
+public class FriendsRecyclerViewAdapter extends RecyclerView.Adapter<FriendsRecyclerViewAdapter.MyViewHolder> {
 
-    private static ArrayList<Friend> mFriendList;
+    private static List<Friend> mFriendList;
+    private static BountyHunterAPI api;
 
-    private static Context mContext;
-
-    public FriendsRecyclerViewAdapter( ArrayList<Friend> friends) {
-        this.mFriendList = friends;
+    public FriendsRecyclerViewAdapter(List<Friend> friends) {
+        mFriendList = friends;
     }
 
     /**
      * Provide a reference to the views for each data item
      */
-    public static class MyViewHolder extends  RecyclerView.ViewHolder{
+    static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         ImageButton deleteBtn;
+        FriendsRecyclerViewAdapter adapter;
 
         /**
          * Sets up the view for each data item,
+         *
          * @param itemView the view that will be used by the item
          */
-        public  MyViewHolder(View itemView){
+        MyViewHolder(final View itemView) {
             super(itemView);
-            textView= itemView.findViewById(R.id.friendName);
-            mContext= itemView.getContext();
-            deleteBtn= itemView.findViewById(R.id.deleteFriendsIcon);
-            deleteBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mContext, "Delete Button works", Toast.LENGTH_LONG).show();
-                }
-            });
+            textView = itemView.findViewById(R.id.myFriendName);
+            api = new BountyHunterAPI(itemView.getContext());
+            deleteBtn = itemView.findViewById(R.id.deleteFriendsIcon);
         }
+
     }
 
     @NonNull
@@ -59,11 +54,25 @@ public class FriendsRecyclerViewAdapter extends  RecyclerView.Adapter<FriendsRec
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FriendsRecyclerViewAdapter.MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final FriendsRecyclerViewAdapter.MyViewHolder myViewHolder, int i) {
 
-        Friend friendObj=mFriendList.get(i);
+        Friend friendObj = mFriendList.get(i);
         String username = friendObj.getFriend().getUsername();
         myViewHolder.textView.setText(username);
+        myViewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Friend friend2Delete = mFriendList.get(myViewHolder.getAdapterPosition());
+                api.removeFriend(friend2Delete.getFriend().getId(), new BountyHunterAPI.successCallBack() {
+                    @Override
+                    public void success() {
+                        mFriendList.remove(myViewHolder.getAdapterPosition());
+                        notifyItemRemoved(myViewHolder.getAdapterPosition());
+                    }
+                });
+
+            }
+        });
 
     }
 

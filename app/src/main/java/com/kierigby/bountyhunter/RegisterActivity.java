@@ -13,11 +13,8 @@ import com.example.bountyhunterapi.BountyHunterAPI;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private ImageButton mbackButton;
-    private Button mCreatAccountButton;
     private BountyHunterAPI api;
     private EditText mFirstNameInput, mLastNameInput, mUsernameInput, mEmailInput, mPasswordInput, mConfirmPasswordInput;
-    private final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!])(?=.*[0-9])(?=.{8,})";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void addListenerToArrow() {
-        mbackButton = findViewById(R.id.backFromStats);
+        ImageButton mbackButton = findViewById(R.id.backFromStats);
 
         mbackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void addListenerToCreateAccountButton() {
-        mCreatAccountButton = findViewById(R.id.createAccountBtn);
+        Button mCreatAccountButton = findViewById(R.id.createAccountBtn);
         mFirstNameInput = findViewById(R.id.firstNameEditText);
         mLastNameInput = findViewById(R.id.lastNameEditText);
         mEmailInput = findViewById(R.id.registerEmailEditText);
@@ -58,14 +55,12 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = mPasswordInput.getText().toString();
                 String confirmPassword =mConfirmPasswordInput.getText().toString();
 
-                if (checkInputs(fistname,lastname,email,username,password,confirmPassword)==true){
+                if (checkInputs(fistname, lastname, email, username, password, confirmPassword)){
                     api.registerUser(fistname,lastname, username,email, confirmPassword, new BountyHunterAPI.successCallBack() {
                         @Override
-                        public void success(int success) {
-                            if(success== 201) {
+                        public void success() {
                                 NavUtils.navigateUpFromSameTask(RegisterActivity.this);
                                 Toast.makeText(getApplicationContext(), "Your account was successfully registered", Toast.LENGTH_LONG).show();
-                            }
                         }
                     });
                 }
@@ -75,6 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public boolean checkInputs(String fistname,String lastname, String email, String username, String password, String confirmPassword) {
 
+        String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!])(?=.*[0-9])(?=.{8,})";
         if (fistname.isEmpty() || lastname.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Please enter all the necessary information", Toast.LENGTH_LONG).show();
             return false;
@@ -84,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
         } else if (!confirmPassword.equals(PASSWORD_REGEX)) {
             Toast.makeText(getApplicationContext(), "Your password must be 6 characters long and must contain: a capital letter, a number and a special character", Toast.LENGTH_LONG).show();
         return false;
-        } else if (api.isEmailValid(email) == false) {
+        } else if (!api.isEmailValid(email)) {
             Toast.makeText(getApplicationContext(), "Please enter a valid email address", Toast.LENGTH_LONG).show();
             return false;
         }
