@@ -59,10 +59,10 @@ public interface RetrofitServices {
     Call<Void> resetPassword(@Path("token") String token,@Field("newpassword") String newPassword);
 
     @GET("/users/stats/{id}/fugitive")
-    Call<FugitiveStat> getFugitiveStats(@Header("Authorization") String authKey, @Path("id") UUID userID);
+    Call<FugitiveStatList> getFugitiveStats(@Header("Authorization") String authKey, @Path("id") UUID userID);
 
     @GET("/users/stats/{id}/bountyhunter")
-    Call<BountyHunterStat> getBountyHunterStats(@Header("Authorization") String authKey, @Path("id") UUID userID);
+    Call<BountyHunterStatList> getBountyHunterStats(@Header("Authorization") String authKey, @Path("id") UUID userID);
 
     @GET("/users/friends/{id}/followers")
     Call<FriendList> getFriendsFollowers(@Header("Authorization") String authKey, @Path("id") UUID userID);

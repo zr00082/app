@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -297,14 +298,14 @@ public class BountyHunterAPI {
 
     public void getFugitiveStats(UUID userID, final StatCallBack callBack) {
         String token = preferences.getString("TOKEN", null);
-        Call<FugitiveStat> call = services.getFugitiveStats(token, userID);
+        Call<FugitiveStatList> call = services.getFugitiveStats(token, userID);
 
-        call.enqueue(new Callback<FugitiveStat>() {
+        call.enqueue(new Callback<FugitiveStatList>() {
             @Override
-            public void onResponse(Call<FugitiveStat> call, Response<FugitiveStat> response) {
+            public void onResponse(Call<FugitiveStatList> call, Response<FugitiveStatList> response) {
                 if (response.code() == 200) {
-                    Toast.makeText(context, "Fugitive stats successfully retrieved", Toast.LENGTH_LONG).show();
-                    callBack.onStatsRetrieved(response.body());
+                    List<Stat> stats= new ArrayList<Stat>(response.body().getStats());
+                    callBack.onStatsRetrieved(stats);
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 401) {
@@ -315,7 +316,7 @@ public class BountyHunterAPI {
             }
 
             @Override
-            public void onFailure(Call<FugitiveStat> call, Throwable t) {
+            public void onFailure(Call<FugitiveStatList> call, Throwable t) {
                 if (t instanceof IOException) {
                     Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
                 } else {
@@ -327,14 +328,14 @@ public class BountyHunterAPI {
 
     public void getBountyHunterStats(UUID userID, final StatCallBack callBack) {
         String token = preferences.getString("TOKEN", null);
-        Call<BountyHunterStat> call = services.getBountyHunterStats(token, userID);
+        Call<BountyHunterStatList> call = services.getBountyHunterStats(token, userID);
 
-        call.enqueue(new Callback<BountyHunterStat>() {
+        call.enqueue(new Callback<BountyHunterStatList>() {
             @Override
-            public void onResponse(Call<BountyHunterStat> call, Response<BountyHunterStat> response) {
+            public void onResponse(Call<BountyHunterStatList> call, Response<BountyHunterStatList> response) {
                 if (response.code() == 200) {
-                    Toast.makeText(context, "BountyHunter stats successfully retrieved", Toast.LENGTH_LONG).show();
-                    callBack.onStatsRetrieved(response.body());
+                    List<Stat> stats= new ArrayList<Stat>(response.body().getStats());
+                    callBack.onStatsRetrieved(stats);
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 401) {
@@ -345,7 +346,7 @@ public class BountyHunterAPI {
             }
 
             @Override
-            public void onFailure(Call<BountyHunterStat> call, Throwable t) {
+            public void onFailure(Call<BountyHunterStatList> call, Throwable t) {
                 if (t instanceof IOException) {
                     Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
                 } else {
@@ -562,7 +563,7 @@ public class BountyHunterAPI {
     }
 
     public interface StatCallBack {
-        void onStatsRetrieved(Stat stat);
+        void onStatsRetrieved(List<Stat> stats);
 
     }
 

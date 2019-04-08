@@ -37,4 +37,6 @@
     <string name="stat_name_string">Stat Name</string>
     <string name="actual_stat_string">Actual Stat</string>
     <string name="friend_s_name_string">Friend\'s Name</string>
+    <string name="position_string">Position:</string>
+    <string name="won_or_lost_string">W/L:</string>
 </resources>

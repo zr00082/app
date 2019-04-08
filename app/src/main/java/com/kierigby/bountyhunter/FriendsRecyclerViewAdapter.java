@@ -1,6 +1,5 @@
 package com.kierigby.bountyhunter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,7 +28,6 @@ public class FriendsRecyclerViewAdapter extends RecyclerView.Adapter<FriendsRecy
     static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         ImageButton deleteBtn;
-        FriendsRecyclerViewAdapter adapter;
 
         /**
          * Sets up the view for each data item,

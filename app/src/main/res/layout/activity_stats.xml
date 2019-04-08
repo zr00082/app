@@ -21,7 +21,7 @@
 
 
     <TextView
-        android:id="@+id/fStatTitle"
+        android:id="@+id/StatTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -45,9 +45,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fStatTitle"
+        app:layout_constraintTop_toBottomOf="@+id/StatTitle"
         app:layout_constraintVertical_bias="0.019"
-        android:id="@+id/fugitive_recycler_view">
+        android:id="@+id/stats_recycler_view">
 
     </android.support.v7.widget.RecyclerView>
 </android.support.constraint.ConstraintLayout>
