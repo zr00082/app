@@ -78,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "The passwords you entered do not match", Toast.LENGTH_LONG).show();
             return false;
         } else if (!confirmPassword.matches(PASSWORD_REGEX)) {
-            Toast.makeText(getApplicationContext(), "Your password must be 6 characters long and must contain: a capital letter, a number and a special character", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Your password must be 6 characters long and must contain one upper and lowercase letter and number or special character (@#$%!)", Toast.LENGTH_LONG).show();
             return false;
         }
         else if (!api.isEmailValid(email)) {
