@@ -122,20 +122,14 @@ public class BountyHunterAPI {
         });
     }
 
-    public void getUser(UUID userID) {
+    public void getUser(UUID userID, final TokenCheckCallBack callBack) {
         String token = preferences.getString("TOKEN", null);
         Call<User> call = services.getUser(token, userID);
 
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.code() == 200) {
-                    Toast.makeText(context, "User account was found", Toast.LENGTH_LONG).show();
-                } else if (response.code() == 404) {
-                    Toast.makeText(context, "Could not find the user account with the specified id \n Please try again", Toast.LENGTH_LONG).show();
-                } else if (response.code() == 401) {
-                    Toast.makeText(context, "Authorization failed \n Please try again", Toast.LENGTH_LONG).show();
-                }
+                callBack.tokenCheck(response.code());
             }
 
             @Override
@@ -511,6 +505,10 @@ public class BountyHunterAPI {
         });
     }
 
+    public void clearToken(){
+        preferences.edit().remove("TOKEN").apply();
+    }
+
     public void blockFriend(UUID userID) {
         String token = preferences.getString("TOKEN", null);
         Call<Void> call = services.blockFriend(token, userID);
@@ -592,6 +590,10 @@ public class BountyHunterAPI {
 
     public interface FoundFriendsCallBack {
         void onFriendsFound(List<Friend> friends);
+    }
+
+    public interface TokenCheckCallBack{
+        void tokenCheck(int code);
     }
 
 }

@@ -35,11 +35,7 @@ public class NewPasswordActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String password= mNewPasswordInput.getText().toString();
                 String confirmPassword=mConfirmNewPasswordInput.getText().toString();
-                if (password.isEmpty() ||confirmPassword.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please enter all the necessary information", Toast.LENGTH_LONG).show();
-                } else if (!password.equals(confirmPassword)) {
-                    Toast.makeText(getApplicationContext(), "The passwords you entered do not match", Toast.LENGTH_LONG).show();
-                } else {
+                if(validInputs(password,confirmPassword)) {
                     api.resetPassoword(getToken(), confirmPassword);
                     NavUtils.navigateUpFromSameTask(NewPasswordActivity.this);
                 }
@@ -67,5 +63,21 @@ public class NewPasswordActivity extends AppCompatActivity {
         String token = deepLinkI.getData().getQueryParameter("token");
         return token;
 
+    }
+
+    public boolean validInputs(String password, String confirmPassword) {
+
+        final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!|0-9])(?=\\S+$).{6,}$";
+        if (password.isEmpty() || confirmPassword.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please enter all the necessary information", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (!password.equals(confirmPassword)) {
+            Toast.makeText(getApplicationContext(), "The passwords you entered do not match", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (!confirmPassword.matches(PASSWORD_REGEX)) {
+            Toast.makeText(getApplicationContext(), "Your password must be 6 characters long and must contain one upper and lowercase letter and number or special character (@#$%!)", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 }

@@ -37,11 +37,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 String currentPassword = mCurrentPassword.getText().toString();
                 String password = mPasswordInput.getText().toString();
                 String confirmPassword = mConfirmPasswordInput.getText().toString();
-                if (password.isEmpty() || confirmPassword.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please enter all the necessary information", Toast.LENGTH_LONG).show();
-                } else if (!password.equals(confirmPassword)) {
-                    Toast.makeText(getApplicationContext(), "The passwords you entered do not match", Toast.LENGTH_LONG).show();
-                } else {
+                if(validInputs(currentPassword,password,confirmPassword)){
                     api.changePassword(((GlobalUser) getApplication()).getLoggedInUser().getId(), currentPassword, confirmPassword, new BountyHunterAPI.successCallBack() {
                         @Override
                         public void success() {
@@ -67,5 +63,21 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 NavUtils.navigateUpFromSameTask(ChangePasswordActivity.this);
             }
         });
+    }
+
+    public boolean validInputs(String currentPassword, String password, String confirmPassword) {
+
+        final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!|0-9])(?=\\S+$).{6,}$";
+        if (currentPassword.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please enter all the necessary information", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (!password.equals(confirmPassword)) {
+            Toast.makeText(getApplicationContext(), "The passwords you entered do not match", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (!confirmPassword.matches(PASSWORD_REGEX)) {
+            Toast.makeText(getApplicationContext(), "Your password must be 6 characters long and must contain one upper and lowercase letter and number or special character (@#$%!)", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 }

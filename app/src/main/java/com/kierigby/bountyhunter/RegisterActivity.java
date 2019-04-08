@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = mPasswordInput.getText().toString();
                 String confirmPassword = mConfirmPasswordInput.getText().toString();
 
-                if (checkInputs(fistname, lastname, email, username, password, confirmPassword)) {
+                if (validInputs(fistname, lastname, email, username, password, confirmPassword)) {
                     api.registerUser(fistname, lastname, username, email, confirmPassword, new BountyHunterAPI.successCallBack() {
                         @Override
                         public void success() {
@@ -68,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    public boolean checkInputs(String fistname, String lastname, String email, String username, String password, String confirmPassword) {
+    public boolean validInputs(String fistname, String lastname, String email, String username, String password, String confirmPassword) {
 
         final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!|0-9])(?=\\S+$).{6,}$";
         if (fistname.isEmpty() || lastname.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {

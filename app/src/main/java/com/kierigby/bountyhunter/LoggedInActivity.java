@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.bountyhunterapi.Token;
 
 public class LoggedInActivity extends AppCompatActivity {
 
@@ -18,6 +21,7 @@ public class LoggedInActivity extends AppCompatActivity {
         addListenerToLogoutImageView();
         addListenerToMyFriendsTextView();
         addListenerToGameHistoryTextView();
+        Toast.makeText(getApplicationContext(), String.valueOf(((GlobalUser) this.getApplication()).tokenCheck()), Toast.LENGTH_SHORT).show();
     }
 
     private void addListenerToProfileImageView() {
