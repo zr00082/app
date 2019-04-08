@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.UUID;
 
 public class FugitiveStat extends Stat {
-    @SerializedName("challengesCompleted")
+    @SerializedName("challengesComplete")
     private int challengesCompleted;
     @SerializedName("challengesFailed")
     private int challengesFailed;

@@ -15,6 +15,7 @@ import java.util.List;
 public class StatsRecyclerViewAdapter extends RecyclerView.Adapter<StatsRecyclerViewAdapter.MyViewHolder> {
 
     private static List<Stat> mStatList;
+    private View.OnClickListener mOnItemClickListener;
 
 
     public StatsRecyclerViewAdapter(List<Stat> stats) {
@@ -27,8 +28,11 @@ public class StatsRecyclerViewAdapter extends RecyclerView.Adapter<StatsRecycler
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            positionTextView = itemView.findViewById(R.id.position);
-            wOrlTextView = itemView.findViewById(R.id.wonOrLost);
+            positionTextView = itemView.findViewById(R.id.positionTextView);
+            wOrlTextView = itemView.findViewById(R.id.wonOrLostTextView);
+            itemView.setTag(this);
+            itemView.setOnClickListener(mOnItemClickListener);
+
         }
     }
 
@@ -42,7 +46,6 @@ public class StatsRecyclerViewAdapter extends RecyclerView.Adapter<StatsRecycler
 
     @Override
     public void onBindViewHolder(@NonNull StatsRecyclerViewAdapter.MyViewHolder myViewHolder, int i) {
-
         Stat statObj = mStatList.get(i);
         String position;
         String wonOrLost;
@@ -58,7 +61,6 @@ public class StatsRecyclerViewAdapter extends RecyclerView.Adapter<StatsRecycler
         } else {
             wonOrLost = "Lost";
         }
-
         myViewHolder.positionTextView.append(" " + position);
         myViewHolder.wOrlTextView.append(" " + wonOrLost);
     }
@@ -68,5 +70,8 @@ public class StatsRecyclerViewAdapter extends RecyclerView.Adapter<StatsRecycler
         return mStatList.size();
     }
 
+    public void setOnItemClickListener(View.OnClickListener itemClickListener) {
+        mOnItemClickListener = itemClickListener;
+    }
 
 }

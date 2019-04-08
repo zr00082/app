@@ -20,7 +20,7 @@ public class SearchFriendActivity extends AppCompatActivity {
 
     private final List<User> searchFriendsList = Collections.synchronizedList(new ArrayList<User>());
     private BountyHunterAPI api;
-    private RecyclerView.Adapter mSearchFriendRecyclerViewAdapter;
+    private SearchFriendsRecyclerViewAdapter mSearchFriendRecyclerViewAdapter;
 
 
     @Override

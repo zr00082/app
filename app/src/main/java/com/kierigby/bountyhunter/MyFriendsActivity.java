@@ -19,7 +19,7 @@ public class MyFriendsActivity extends AppCompatActivity {
 
     private final List<Friend> friendsList = Collections.synchronizedList(new ArrayList<Friend>());
     private BountyHunterAPI api;
-    private RecyclerView.Adapter mFriendRecyclerViewAdapter;
+    private FriendsRecyclerViewAdapter mFriendRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
