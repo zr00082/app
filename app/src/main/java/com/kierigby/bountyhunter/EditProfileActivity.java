@@ -41,7 +41,6 @@ public class EditProfileActivity extends AppCompatActivity {
         usernameEditText = findViewById(R.id.etUsername);
         emailEditText = findViewById(R.id.etEmail);
 
-
         firstnameEditText.setText(userProfile.getFirstName());
         lastnameEditText.setText(userProfile.getLastName());
         usernameEditText.setText(userProfile.getUsername());
@@ -146,7 +145,6 @@ public class EditProfileActivity extends AppCompatActivity {
         });
         builder.show();
     }
-
 
     public void addListenerToBackButton() {
         ImageButton mBackButton = findViewById(R.id.backFromEditProfile);

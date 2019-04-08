@@ -75,7 +75,6 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
                 if (response.code() == 200) {
-                    // preferences = PreferenceManager.getDefaultSharedPreferences(context);
                     preferences.edit().putString("TOKEN", "Bearer " + response.body().getToken()).apply();
                     getLoggedInUser(preferences.getString("TOKEN", null), callBack);
 
@@ -190,11 +189,20 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Log.d("Response", call.request().toString());
+                Log.d("Response", response.toString());
                 if (response.code() == 204) {
                     callBack.success();
                     Toast.makeText(context, "Your account was successfully deleted", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 500) {
                     Toast.makeText(context, "An error occurred when trying to delete the account \n Please try again", Toast.LENGTH_LONG).show();
+                    try {
+                        JSONObject errorObj = new JSONObject(response.errorBody().string());
+                        Log.d("Response", errorObj.toString());
+
+
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not delete the user as the user was not found\n Please try again", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 401) {
