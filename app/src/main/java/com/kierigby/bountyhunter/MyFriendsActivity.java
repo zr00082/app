@@ -29,7 +29,7 @@ public class MyFriendsActivity extends AppCompatActivity {
 
     private  void initRecyclerView(){
 
-        RecyclerView recyclerView = findViewById(R.id.friends_recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.notifications_recycler_view);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, friendName, userName);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
