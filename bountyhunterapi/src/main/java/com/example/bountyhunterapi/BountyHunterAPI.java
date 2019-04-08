@@ -296,6 +296,35 @@ public class BountyHunterAPI {
         });
     }
 
+    public void changePassword(UUID userID, String password, String newPassword,final successCallBack callBack) {
+        String token = preferences.getString("TOKEN", null);
+        Call<Void> call = services.changePassword(token,userID,password,newPassword);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    callBack.success();
+                    Toast.makeText(context, "Your password was successfully changed", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 404) {
+                    Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 401) {
+                    Toast.makeText(context, "The current password you entered was incorrect \n Please try again", Toast.LENGTH_LONG).show();
+                } else if (response.code() == 500) {
+                    Toast.makeText(context, "Unable to update password \nPlease try again", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Toast.makeText(context, "Your device is not connected to the internet \n Ensure the device is connected to the internet then try again", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, "Failed to connect to the server \n Please close the application and try again", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
     public void getFugitiveStats(UUID userID, final StatCallBack callBack) {
         String token = preferences.getString("TOKEN", null);
         Call<FugitiveStatList> call = services.getFugitiveStats(token, userID);
@@ -304,7 +333,7 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<FugitiveStatList> call, Response<FugitiveStatList> response) {
                 if (response.code() == 200) {
-                    List<Stat> stats= new ArrayList<Stat>(response.body().getStats());
+                    List<Stat> stats = new ArrayList<Stat>(response.body().getStats());
                     callBack.onStatsRetrieved(stats);
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
@@ -334,7 +363,7 @@ public class BountyHunterAPI {
             @Override
             public void onResponse(Call<BountyHunterStatList> call, Response<BountyHunterStatList> response) {
                 if (response.code() == 200) {
-                    List<Stat> stats= new ArrayList<Stat>(response.body().getStats());
+                    List<Stat> stats = new ArrayList<Stat>(response.body().getStats());
                     callBack.onStatsRetrieved(stats);
                 } else if (response.code() == 404) {
                     Toast.makeText(context, "Could not find your user account\nPlease re-login and try again", Toast.LENGTH_LONG).show();
@@ -425,9 +454,6 @@ public class BountyHunterAPI {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Log.d("Response: ", response.raw().toString());
-                Log.d("Request: ", call.request().toString());
-
                 if (response.code() == 200) {
                     Toast.makeText(context, "Added!!!", Toast.LENGTH_SHORT).show();
                 } else if (response.code() == 404) {

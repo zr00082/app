@@ -32,6 +32,7 @@ public class EditProfileActivity extends AppCompatActivity {
         addListenerToDeleteBtn();
         addListenerToUpdateBtn();
         addListenerToBackButton();
+        addListenerToChangePasswordBtn();
     }
 
     public void fillEditTexts() {
@@ -68,7 +69,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 String username = usernameEditText.getText().toString();
                 String email = emailEditText.getText().toString();
 
-
                 if (checkEditTexts(firstname, lastname, username,email)) {
                     api.updateUser(userProfile.getId(), firstname,lastname,username,email, new BountyHunterAPI.FoundUserCallBack() {
                          @Override
@@ -81,6 +81,19 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void addListenerToChangePasswordBtn(){
+        ImageButton changePasswordBtn = findViewById(R.id.changePasswordBtn);
+
+        changePasswordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent changePassI = new Intent(EditProfileActivity.this, ChangePasswordActivity.class);
+                startActivity(changePassI);
+            }
+        });
+
     }
 
     public void addListenerToDeleteBtn() {

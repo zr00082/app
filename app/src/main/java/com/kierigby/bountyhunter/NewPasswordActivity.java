@@ -33,12 +33,14 @@ public class NewPasswordActivity extends AppCompatActivity {
         mNewPasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mNewPasswordInput.getText().toString().isEmpty() || mConfirmNewPasswordInput.getText().toString().isEmpty()) {
+                String password= mNewPasswordInput.getText().toString();
+                String confirmPassword=mConfirmNewPasswordInput.getText().toString();
+                if (password.isEmpty() ||confirmPassword.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please enter all the necessary information", Toast.LENGTH_LONG).show();
-                } else if (!mNewPasswordInput.getText().toString().equals(mConfirmNewPasswordInput.getText().toString())) {
+                } else if (!password.equals(confirmPassword)) {
                     Toast.makeText(getApplicationContext(), "The passwords you entered do not match", Toast.LENGTH_LONG).show();
                 } else {
-                    api.resetPassoword(getToken(), mConfirmNewPasswordInput.getText().toString());
+                    api.resetPassoword(getToken(), confirmPassword);
                     NavUtils.navigateUpFromSameTask(NewPasswordActivity.this);
                 }
             }
