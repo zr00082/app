@@ -9,25 +9,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bountyhunterapi.BountyHunterAPI;
-import com.example.bountyhunterapi.Friend;
-
-import java.util.List;
 
 public class LoggedInActivity extends AppCompatActivity {
-    private ImageView profileImageView, notificationsImageView, logOutImageView;
-    private TextView createGameTextView, gameHistoryTextView, gameRulesTextView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((GlobalUser) this.getApplication()).tokenCheck();
         setContentView(R.layout.activity_logged_in);
         addListenerToProfileImageView();
         addListenerToLogoutImageView();
+        addListenerToMyFriendsTextView();
+        addListenerToGameHistoryTextView();
     }
 
     private void addListenerToProfileImageView() {
-        profileImageView = findViewById(R.id.profileImageView);
+        ImageView profileImageView = findViewById(R.id.profileImageView);
 
         profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +38,7 @@ public class LoggedInActivity extends AppCompatActivity {
     }
 
     private void addListenterToNotificationsImageView() {
-        notificationsImageView = findViewById(R.id.notificationsImageView);
+        ImageView notificationsImageView = findViewById(R.id.notificationsImageView);
 
         notificationsImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,21 +51,19 @@ public class LoggedInActivity extends AppCompatActivity {
     }
 
     private void addListenerToLogoutImageView() {
-        logOutImageView = findViewById(R.id.logoutImageView);
+        ImageView logOutImageView = findViewById(R.id.logoutImageView);
 
         logOutImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((GlobalUser) getApplication()).logoutUser();
-                Intent logoutI = new Intent(LoggedInActivity.this, MainActivity.class);
-                startActivity(logoutI);
             }
         });
 
     }
 
     private void addListenerToCreateGameTextView() {
-        createGameTextView = findViewById(R.id.tvCreateGame);
+        TextView createGameTextView = findViewById(R.id.tvCreateGame);
 
         createGameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,18 +74,19 @@ public class LoggedInActivity extends AppCompatActivity {
     }
 
     private void addListenerToGameHistoryTextView() {
-        gameHistoryTextView = findViewById(R.id.tvGameHistory);
+        TextView gameHistoryTextView = findViewById(R.id.tvGameHistory);
 
         gameHistoryTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent statsI = new Intent(LoggedInActivity.this, StatsActivity.class);
+                startActivity(statsI);
             }
         });
     }
 
     private void addListenerToGameRulesTextView() {
-        gameRulesTextView = findViewById(R.id.tvGameRules);
+        TextView gameRulesTextView = findViewById(R.id.tvGameRules);
 
         gameRulesTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,5 +98,17 @@ public class LoggedInActivity extends AppCompatActivity {
 
     }
 
+    private void addListenerToMyFriendsTextView() {
+        TextView myFriendsTextView = findViewById(R.id.tvMyFriends);
+
+        myFriendsTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent friendsI = new Intent(LoggedInActivity.this, MyFriendsActivity.class);
+                startActivity(friendsI);
+            }
+        });
+
+    }
 
 }

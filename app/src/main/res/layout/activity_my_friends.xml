@@ -8,7 +8,7 @@
     >
 
     <ImageButton
-        android:id="@+id/backFromMyNotifations"
+        android:id="@+id/backFromMyFriends
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
@@ -35,8 +35,8 @@
         android:padding="@dimen/_10sdp"
         android:text="@string/friends_string"
         android:textColor="@color/white"
-        android:textSize="@dimen/_30sdp"
-        app:layout_constraintBottom_toTopOf="@+id/btSearch"
+        android:textSize="@dimen/_20sdp"
+        app:layout_constraintBottom_toTopOf="@+id/findFriendsBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -45,14 +45,14 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:id="@+id/notifications_recycler_view"
-        app:layout_constraintBottom_toTopOf="@id/btSearch"
+        android:id="@+id/friends_recycler_view"
+        app:layout_constraintBottom_toTopOf="@id/findFriendsBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
     <Button
-        android:id="@+id/btSearch"
+        android:id="@+id/findFriendsBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"

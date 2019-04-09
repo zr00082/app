@@ -1,10 +1,8 @@
 package com.kierigby.bountyhunter;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
-import android.support.annotation.ColorInt;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -23,12 +21,11 @@ public class EditProfileActivity extends AppCompatActivity {
     private User userProfile;
     private EditText firstnameEditText, lastnameEditText, usernameEditText, emailEditText;
     private BountyHunterAPI api;
-    private Button deletedBtn, updateBtn;
-    private ImageButton mBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((GlobalUser) this.getApplication()).tokenCheck();
         setContentView(R.layout.activity_edit_profile);
         api= new BountyHunterAPI(this);
         userProfile = ((GlobalUser) this.getApplication()).getLoggedInUser();
@@ -36,6 +33,7 @@ public class EditProfileActivity extends AppCompatActivity {
         addListenerToDeleteBtn();
         addListenerToUpdateBtn();
         addListenerToBackButton();
+        addListenerToChangePasswordBtn();
     }
 
     public void fillEditTexts() {
@@ -43,7 +41,6 @@ public class EditProfileActivity extends AppCompatActivity {
         lastnameEditText = findViewById(R.id.etLastname);
         usernameEditText = findViewById(R.id.etUsername);
         emailEditText = findViewById(R.id.etEmail);
-
 
         firstnameEditText.setText(userProfile.getFirstName());
         lastnameEditText.setText(userProfile.getLastName());
@@ -57,14 +54,12 @@ public class EditProfileActivity extends AppCompatActivity {
         if (firstname.isEmpty() || lastname.isEmpty() || username.isEmpty() || email.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Please enter all the necessary information", Toast.LENGTH_LONG).show();
             return false;
-        } else if (firstname.equals(userProfile.getFirstName()) && lastname.equals(userProfile.getLastName()) && username.equals(userProfile.getUsername()) && email.equals(userProfile.getEmail())) {
-            return false;
-        }
-        return true;
+        } else
+            return !firstname.equals(userProfile.getFirstName()) || !lastname.equals(userProfile.getLastName()) || !username.equals(userProfile.getUsername()) || !email.equals(userProfile.getEmail());
     }
 
     public void addListenerToUpdateBtn() {
-        updateBtn = findViewById(R.id.btEdit);
+        Button updateBtn = findViewById(R.id.btEdit);
 
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +69,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 String username = usernameEditText.getText().toString();
                 String email = emailEditText.getText().toString();
 
-
-                if (checkEditTexts(firstname, lastname, username,email) == true) {
+                if (checkEditTexts(firstname, lastname, username,email)) {
                     api.updateUser(userProfile.getId(), firstname,lastname,username,email, new BountyHunterAPI.FoundUserCallBack() {
                          @Override
                          public void onUserReturned(User user) {
@@ -89,8 +83,21 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
+    public void addListenerToChangePasswordBtn(){
+        ImageButton changePasswordBtn = findViewById(R.id.changePasswordBtn);
+
+        changePasswordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent changePassI = new Intent(EditProfileActivity.this, ChangePasswordActivity.class);
+                startActivity(changePassI);
+            }
+        });
+
+    }
+
     public void addListenerToDeleteBtn() {
-        deletedBtn = findViewById(R.id.btDelete);
+        Button deletedBtn = findViewById(R.id.btDelete);
 
         deletedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,13 +126,11 @@ public class EditProfileActivity extends AppCompatActivity {
                 } else {
                     api.deleteUser(userProfile.getId(), deletePassword, new BountyHunterAPI.successCallBack() {
                         @Override
-                        public void success(int success) {
-                            if (success == 204) {
+                        public void success() {
                                 dialog.dismiss();
                                 ((GlobalUser) getApplication()).logoutUser();
                                 Intent mainI = new Intent(EditProfileActivity.this, MainActivity.class);
                                 startActivity(mainI);
-                            }
                         }
                     });
                 }
@@ -142,9 +147,8 @@ public class EditProfileActivity extends AppCompatActivity {
         builder.show();
     }
 
-
     public void addListenerToBackButton() {
-        mBackButton = findViewById(R.id.backFromEditProfile);
+        ImageButton mBackButton = findViewById(R.id.backFromEditProfile);
 
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
