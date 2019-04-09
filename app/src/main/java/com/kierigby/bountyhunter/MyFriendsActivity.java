@@ -68,9 +68,9 @@ public class MyFriendsActivity extends AppCompatActivity {
         });
     }
 
+
     public void addListenerToBackButton() {
         ImageButton mBackButton = findViewById(R.id.backFromMyFriends);
-
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
