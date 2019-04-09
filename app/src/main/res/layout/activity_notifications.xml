@@ -36,7 +36,6 @@
         android:text="Notifications"
         android:textColor="@color/white"
         android:textSize="@dimen/_30sdp"
-        app:layout_constraintBottom_toTopOf="@+id/btSearch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
