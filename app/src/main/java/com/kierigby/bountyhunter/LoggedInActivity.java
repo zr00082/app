@@ -22,6 +22,8 @@ public class LoggedInActivity extends AppCompatActivity {
         addListenerToLogoutImageView();
         addListenerToMyFriendsTextView();
         addListenerToGameHistoryTextView();
+        addListenterToNotificationsImageView();
+        addListenerToCreateGameTextView();
     }
 
     private void addListenerToProfileImageView() {
@@ -43,7 +45,7 @@ public class LoggedInActivity extends AppCompatActivity {
         notificationsImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent notificationsI = new Intent(LoggedInActivity.this, EditProfileActivity.class);
+                Intent notificationsI = new Intent(LoggedInActivity.this, NotificationsActivity.class);
                 startActivity(notificationsI);
             }
         });
@@ -68,7 +70,8 @@ public class LoggedInActivity extends AppCompatActivity {
         createGameTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent createGameI = new Intent(LoggedInActivity.this, CreateGameActivity.class);
+                startActivity(createGameI);
             }
         });
     }

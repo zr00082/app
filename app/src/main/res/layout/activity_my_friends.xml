@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkblue"
-    >
+    android:background="@color/darkblue">
 
     <ImageButton
-        android:id="@+id/backFromMyFriends
+        android:id="@+id/backFromMyFriends"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
