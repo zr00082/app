@@ -241,7 +241,7 @@ public class BountyHunterAPI {
                 if (response.code() == 200) {
                     Toast.makeText(context, "An email has been sent with a link to reset your password", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 404) {
-                    Toast.makeText(context, "There is no user that links to the email entered \n Please enter the email the email you used to register your account", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "There is no user that links to the email entered", Toast.LENGTH_LONG).show();
                 } else if (response.code() == 500) {
                     Toast.makeText(context, "An error occurred when trying to send the email to reset your password\n Please try again", Toast.LENGTH_LONG).show();
                 }
@@ -259,7 +259,7 @@ public class BountyHunterAPI {
 
     }
 
-    public void resetPassoword(String token, String newPassword) {
+    public void resetPassword(String token, String newPassword) {
         Call<Void> call = services.resetPassword(token, newPassword);
 
         call.enqueue(new Callback<Void>() {

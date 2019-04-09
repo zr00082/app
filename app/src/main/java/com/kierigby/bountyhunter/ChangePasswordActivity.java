@@ -19,6 +19,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((GlobalUser) this.getApplication()).tokenCheck();
         setContentView(R.layout.activity_change_password);
         api = new BountyHunterAPI(this);
         addListenerToArrow();

@@ -25,6 +25,7 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((GlobalUser) this.getApplication()).tokenCheck();
         setContentView(R.layout.activity_edit_profile);
         api= new BountyHunterAPI(this);
         userProfile = ((GlobalUser) this.getApplication()).getLoggedInUser();

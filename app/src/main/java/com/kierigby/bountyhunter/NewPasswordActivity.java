@@ -36,7 +36,7 @@ public class NewPasswordActivity extends AppCompatActivity {
                 String password= mNewPasswordInput.getText().toString();
                 String confirmPassword=mConfirmNewPasswordInput.getText().toString();
                 if(validInputs(password,confirmPassword)) {
-                    api.resetPassoword(getToken(), confirmPassword);
+                    api.resetPassword(getToken(), confirmPassword);
                     NavUtils.navigateUpFromSameTask(NewPasswordActivity.this);
                 }
             }

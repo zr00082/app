@@ -26,6 +26,7 @@ public class SearchFriendActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((GlobalUser) this.getApplication()).tokenCheck();
         setContentView(R.layout.activity_search_friend);
         api = new BountyHunterAPI(this);
         setUpRecyclerView();

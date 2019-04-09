@@ -24,6 +24,7 @@ public class MyFriendsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((GlobalUser) this.getApplication()).tokenCheck();
         setContentView(R.layout.activity_my_friends);
         api = new BountyHunterAPI(this);
         addListenerToBackButton();

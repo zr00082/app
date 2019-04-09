@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bountyhunterapi.Token;
+import com.example.bountyhunterapi.BountyHunterAPI;
 
 public class LoggedInActivity extends AppCompatActivity {
 
@@ -16,12 +16,12 @@ public class LoggedInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((GlobalUser) this.getApplication()).tokenCheck();
         setContentView(R.layout.activity_logged_in);
         addListenerToProfileImageView();
         addListenerToLogoutImageView();
         addListenerToMyFriendsTextView();
         addListenerToGameHistoryTextView();
-        Toast.makeText(getApplicationContext(), String.valueOf(((GlobalUser) this.getApplication()).tokenCheck()), Toast.LENGTH_SHORT).show();
     }
 
     private void addListenerToProfileImageView() {
@@ -57,8 +57,6 @@ public class LoggedInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ((GlobalUser) getApplication()).logoutUser();
-                Intent logoutI = new Intent(LoggedInActivity.this, MainActivity.class);
-                startActivity(logoutI);
             }
         });
 
@@ -110,7 +108,6 @@ public class LoggedInActivity extends AppCompatActivity {
                 startActivity(friendsI);
             }
         });
-
 
     }
 

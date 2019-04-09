@@ -30,6 +30,7 @@ public class StatsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((GlobalUser) this.getApplication()).tokenCheck();
         setContentView(R.layout.activity_stats);
         api = new BountyHunterAPI(this);
         mItemClickListener = createClickListener();
